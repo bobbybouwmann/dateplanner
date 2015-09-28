@@ -13,8 +13,6 @@
     <context:component-scan base-package="nl.ead.dateplanner"/>
     <!--Allow usage of annotation driven webservices with @Endpoint, @RequestPayload, @ResponsePayload etc.-->
     <sws:annotation-driven/>
-    <!--Allow usage of @Transactional to run database transactions, used in conjunction with entityManagerFactory and transactionManager beans-->
-    <tx:annotation-driven/>
 
     <!--Interceptors get to process incoming before and outgoing messages after the endpoint-->
     <sws:interceptors>
