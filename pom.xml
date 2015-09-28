@@ -3,11 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <name>Calculator Spring-WS Application</name>
+    <name>DatePlanner Spring-WS Application</name>
     <url>http://www.springframework.org/spring-ws</url>
     
-    <groupId>nl.ead.webservice</groupId>
-    <artifactId>Calculator</artifactId>
+    <groupId>nl.ead.dateplanner</groupId>
+    <artifactId>DatePlanner</artifactId>
     <version>1.0-SNAPSHOT</version>
         
     <packaging>war</packaging>
@@ -20,7 +20,7 @@
     </properties>
 
     <build>
-        <finalName>calculator</finalName>
+        <finalName>dateplanner</finalName>
         
         <plugins>
             <plugin>
@@ -53,8 +53,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <generatePackage>nl.ead.webservice</generatePackage>
-                    <schemaDirectory>${basedir}/src/main/webapp/calculator</schemaDirectory>
+                    <generatePackage>nl.ead.dateplanner</generatePackage>
+                    <schemaDirectory>${basedir}/src/main/webapp/dateplanner</schemaDirectory>
                 </configuration>
             </plugin>
         </plugins>
@@ -90,46 +90,6 @@
             <scope>test</scope>
         </dependency>
         <!--End Unit Testing dependencies-->
-        
-        <!--Start Persistance JPA/MySQL dependencies-->
-        <!--MySQL database driver used by Hibernate/c3p0-->      
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.31</version>
-        </dependency>
-        
-        <!--Hibernate ORM for persistance-->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-        
-        <!--Hibernate EntityManager provides the implementation of the JPA EntityManager-->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jpa</artifactId>
-            <version>2.0.8</version>
-        </dependency>
-        
-        <!--c3p0 is a connection pooler, it avoids creating new database connections
-        by mantaining a pool of open connections-->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-c3p0</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>        
-        <dependency>
-            <groupId>c3p0</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.1.2</version>
-        </dependency>
         
         <!--Spring container managed transactions-->
         <dependency>

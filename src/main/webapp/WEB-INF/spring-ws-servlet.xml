@@ -34,13 +34,4 @@
                       targetNamespace="http://www.han.nl/schemas/dateplanner/definitions">
         <sws:xsd location="/dateplanner/dateplanner.xsd" />
     </sws:dynamic-wsdl>
-
-    <!--This bean gets used to create EntityManagers which can be used for Repositories/DAOs-->
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="calculator"/>
-    </bean>
-    <!--This bean gets used to manage the transactions inside the EntityManagers, without it data would not get saved as transactions are never flushed-->
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
-    </bean>
 </beans>
