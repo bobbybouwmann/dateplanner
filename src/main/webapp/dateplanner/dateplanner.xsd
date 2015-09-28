@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name='Root'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='DateOptions'>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element
+                  name='Location'
+                  type='LocationType'
+                  minOccurs='1'
+                  maxOccurs='1'>
+              </xs:element>
+                <xs:element
+                    name='Radius'
+                    type='RadiusType'
+                    minOccurs='1'
+                    maxOccurs='1'>
+                </xs:element>
+                <xs:element
+                    name='Best'
+                    type='BestType'
+                    minOccurs='1'
+                    maxOccurs='1'>
+                </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name='LocationType'>
+    <xs:sequence>
+      <xs:element name='Longitude' type='xs:decimal'/>
+      <xs:element name='Latitude' type='xs:decimal'/>
+      <xs:element name='City' type='xs:string'/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name='RadiusType'>
+    <xs:sequence>
+      <xs:element name='Radius' type='xs:decimal'/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name='BestType'>
+    <xs:sequence>
+      <xs:element name='GetBest' type='xs:string'/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
