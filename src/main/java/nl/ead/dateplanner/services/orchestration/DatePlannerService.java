@@ -20,8 +20,7 @@ import javax.xml.namespace.QName;
 
 @Endpoint
 public class DatePlannerService {
-
-    @Autowired
+    
     public DatePlannerService() {
 
     }
