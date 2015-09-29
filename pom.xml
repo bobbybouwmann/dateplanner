@@ -107,21 +107,29 @@
         </dependency>
         <!--End dependencies needed for demo-->
 
-        <!--Dependencies for YahooWeatherAPI-->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.12</version>
-        </dependency>
-        <!--End dependencies for YahooWeatherAPI-->
+        <!--&lt;!&ndash;Dependencies for YahooWeatherAPI&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-api</artifactId>-->
+            <!--<version>1.7.12</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash;End dependencies for YahooWeatherAPI&ndash;&gt;-->
 
-        <!--Yahoo API-->
+        <!--&lt;!&ndash;Yahoo API&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.fedy2</groupId>-->
+            <!--<artifactId>yahoo-weather-java-api</artifactId>-->
+            <!--<version>1.2.0</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash;end Yahoo API&ndash;&gt;-->
+
+        <!--Dependency for JSON parsing-->
         <dependency>
-            <groupId>com.github.fedy2</groupId>
-            <artifactId>yahoo-weather-java-api</artifactId>
-            <version>1.2.0</version>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
         </dependency>
-        <!--end Yahoo API-->
+        <!--End dependency for JSON parsing-->
 
     </dependencies>
 </project>
