@@ -1,23 +1,32 @@
 package nl.ead.dateplanner.services.application.yahoo;
 
-import com.github.fedy2.weather.YahooWeatherService;
-import com.github.fedy2.weather.data.Channel;
-import com.github.fedy2.weather.data.unit.DegreeUnit;
+import nl.ead.dateplanner.services.LocationType;
+import nl.ead.dateplanner.services.WeatherDataType;
 
 public class WeatherService {
 
-    public String WeatherService() {
-        Channel channel = null;
+    private String weatherAPIUrl = "https://query.yahooapis.com/v1/public/yql?q=";
 
-        try {
-            YahooWeatherService service = new YahooWeatherService();
+    private String query = "";
 
-            channel = service.getForecast("2502265", DegreeUnit.CELSIUS);
-        } catch(Exception e) {
-            System.err.println("Exception: " + e.getMessage());
-        }
+    private String result;
 
-        return channel.getDescription();
+    public WeatherDataType retrieveWeather(LocationType locationType) {
+        WeatherDataType weatherDataType = new WeatherDataType();
+
+        result = "";
+
+//        weatherDataType.setAstronomy();
+//        weatherDataType.setForecast();
+//        weatherDataType.setLocation();
+
+        return weatherDataType;
     }
-	
+
+    public String generateQuery() {
+        return "";
+//        return this.locationType.getCity();
+    }
+
+    // new StringBuilder(this.weatherAPIUrl);
 }
