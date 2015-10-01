@@ -9,5 +9,10 @@ import java.util.List;
  */
 public interface IRestaurantService {
 
+    /**
+     * Get the restaurants near a given place
+     * @param place Query name of a city or location. For example: "Amsterdam, nl"
+     * @return Restaurants near by given city or location.
+     */
     List<Place> getRestaurantsNearPlace(String place);
 }

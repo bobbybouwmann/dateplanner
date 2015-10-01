@@ -8,6 +8,11 @@ import java.util.List;
 
 public class RestaurantService implements IRestaurantService {
 
+    /**
+     * Get the restaurants near a given place
+     * @param place Query name of a city or location. For example: "Amsterdam, nl"
+     * @return Restaurants near by given city or location.
+     */
 	public List<Place> getRestaurantsNearPlace(String place) {
         String queryString = "restaurants near " + place;
         try {
