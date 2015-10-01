@@ -6,21 +6,16 @@ import net.sf.sprockets.google.Places;
 import java.io.IOException;
 import java.util.List;
 
-public class RestaurantService {
+public class RestaurantService implements IRestaurantService {
 
-    public RestaurantService() { // TODO provide mock object for places API wrapper?
-
-    }
-
-	public static String getRestaurantsNearPlace(String place) {
-        String ret = "";
+	public List<Place> getRestaurantsNearPlace(String place) {
+        String queryString = "restaurants near " + place;
         try {
-            List<Place> places = Places.textSearch(new Places.Params().query(place).keyword("restaurant")).getResult();
-
-            return places.get(0).getName();
+            List<Place> places = Places.textSearch(new Places.Params().query(queryString).keyword("restaurant")).getResult();
+            return places;
         } catch (IOException e) {
             // handle exception
         }
-        return ret;
+        return null;
     }
 }
