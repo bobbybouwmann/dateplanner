@@ -37,7 +37,7 @@
             <element name="location" type="string" minOccurs="1" maxOccurs="1"/>
             <element name="radius" type="decimal" minOccurs="1" maxOccurs="1"/>
             <element name="dayPart" type="tns:DayParts" minOccurs="1" maxOccurs="1"/>
-            <element name="types" type="tns:PlaceTypes" minOccurs="1" maxOccurs="unbounded"/>
+            <element name="types" type="tns:PlaceTypes" minOccurs="1" maxOccurs="7"/>
         </sequence>
     </complexType>
 
