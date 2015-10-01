@@ -4,53 +4,83 @@
         xmlns:tns="http://www.han.nl/schemas/dateplanner"
         elementFormDefault="qualified">
 
+    <simpleType name="DayParts">
+        <restriction base="NCName">
+            <enumeration value="morning"/>
+            <enumeration value="day"/>
+            <enumeration value="evening"/>
+            <enumeration value="night"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="PlaceTypes">
+        <restriction base="NCName">
+            <enumeration value="amusement_park"/>
+            <enumeration value="aquarium"/>
+            <enumeration value="bar"/>
+            <enumeration value="bowling_alley"/>
+            <enumeration value="cafe"/>
+            <enumeration value="casino"/>
+            <enumeration value="library"/>
+            <enumeration value="movie_theater"/>
+            <enumeration value="museum"/>
+            <enumeration value="night_club"/>
+            <enumeration value="park"/>
+            <enumeration value="restaurant"/>
+            <enumeration value="spa"/>
+            <enumeration value="zoo"/>
+        </restriction>
+    </simpleType>
+
     <complexType name="DateOptions">
         <sequence>
-            <element name="location" type="string" minOccurs="1" maxOccurs="1"></element>
-            <element name="radius" type="decimal" minOccurs="1" maxOccurs="1"></element>
-            <element name="daypart" type="string" minOccurs="1" maxOccurs="1"></element>
-            <element name="restaurantType" type="string" minOccurs="1" maxOccurs="unbounded"></element>
+            <element name="location" type="string" minOccurs="1" maxOccurs="1"/>
+            <element name="radius" type="decimal" minOccurs="1" maxOccurs="1"/>
+            <element name="dayPart" type="tns:DayParts" minOccurs="1" maxOccurs="1"/>
+            <element name="types" type="tns:PlaceTypes" minOccurs="1" maxOccurs="unbounded"/>
         </sequence>
     </complexType>
 
     <complexType name="ForecastType">
         <sequence>
-            <element name="temperature" type="float"></element>
-            <element name="rain" type="boolean"></element>
-            <element name="snow" type="boolean"></element>
-            <element name="clouds" type="float"></element>
+            <element name="temperature" type="float"/>
+            <element name="minTemperature" type="float"/>
+            <element name="maxTemperature" type="float"/>
+            <element name="rain" type="boolean"/>
+            <element name="snow" type="boolean"/>
+            <element name="clouds" type="float"/>
         </sequence>
     </complexType>
 
     <complexType name="WeatherDataType">
         <sequence>
-            <element name="forecast" type="tns:ForecastType" minOccurs="0" maxOccurs="unbounded"></element>
+            <element name="forecast" type="tns:ForecastType" minOccurs="0" maxOccurs="unbounded"/>
         </sequence>
     </complexType>
 
     <complexType name="RestaurantDataType">
         <sequence>
-            <element name="name" type="string"></element>
-            <element name="id" type="string"></element>
-            <element name="placeId" type="string"></element>
-            <element name="type" type="string" minOccurs="0" maxOccurs="unbounded"></element>
-            <element name="vicinity" type="string"></element>
-            <element name="openingHours" type="string" minOccurs="0" maxOccurs="unbounded"></element>
+            <element name="name" type="string"/>
+            <element name="id" type="string"/>
+            <element name="placeId" type="string"/>
+            <element name="type" type="string" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="vicinity" type="string"/>
+            <element name="openingHours" type="string" minOccurs="0" maxOccurs="unbounded"/>
         </sequence>
     </complexType>
 
     <complexType name="DateDataType">
         <sequence>
-            <element name="weatherData" type="tns:WeatherDataType"></element>
-            <element name="restaurantData" type="tns:RestaurantDataType"></element>
-            <element name="date" type="dateTime"></element>
+            <element name="weatherData" type="tns:WeatherDataType"/>
+            <element name="restaurantData" type="tns:RestaurantDataType"/>
+            <element name="date" type="dateTime"/>
         </sequence>
     </complexType>
 
     <element name="DateplannerRequest">
         <complexType>
             <sequence>
-                <element name="input" type="tns:DateOptions" minOccurs="1" maxOccurs="1"></element>
+                <element name="input" type="tns:DateOptions" minOccurs="1" maxOccurs="1"/>
             </sequence>
         </complexType>
     </element>
@@ -58,7 +88,7 @@
     <element name="DateplannerResponse">
         <complexType>
             <sequence>
-                <element name="result" type="tns:DateDataType" minOccurs="0"></element>
+                <element name="result" type="tns:DateDataType" minOccurs="0"/>
             </sequence>
         </complexType>
     </element>

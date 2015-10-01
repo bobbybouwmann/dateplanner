@@ -62,14 +62,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RadiusType }
-     * 
-     */
-    public RadiusType createRadiusType() {
-        return new RadiusType();
-    }
-
-    /**
      * Create an instance of {@link WeatherDataType }
      * 
      */
@@ -83,14 +75,6 @@ public class ObjectFactory {
      */
     public ForecastType createForecastType() {
         return new ForecastType();
-    }
-
-    /**
-     * Create an instance of {@link LocationType }
-     * 
-     */
-    public LocationType createLocationType() {
-        return new LocationType();
     }
 
     /**

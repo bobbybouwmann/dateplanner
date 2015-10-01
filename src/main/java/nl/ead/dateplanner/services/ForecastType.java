@@ -17,12 +17,12 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="dayTemperature" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *         &lt;element name="eveningTemperature" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *         &lt;element name="maximumTemperature" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *         &lt;element name="minimumTemperature" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *         &lt;element name="morningTemperature" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *         &lt;element name="nightTemperature" type="{http://www.w3.org/2001/XMLSchema}float"/>
+ *         &lt;element name="temperature" type="{http://www.w3.org/2001/XMLSchema}float"/>
+ *         &lt;element name="minTemperature" type="{http://www.w3.org/2001/XMLSchema}float"/>
+ *         &lt;element name="maxTemperature" type="{http://www.w3.org/2001/XMLSchema}float"/>
+ *         &lt;element name="rain" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="snow" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="clouds" type="{http://www.w3.org/2001/XMLSchema}float"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,122 +33,122 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ForecastType", namespace = "http://www.han.nl/schemas/dateplanner", propOrder = {
-    "dayTemperature",
-    "eveningTemperature",
-    "maximumTemperature",
-    "minimumTemperature",
-    "morningTemperature",
-    "nightTemperature"
+    "temperature",
+    "minTemperature",
+    "maxTemperature",
+    "rain",
+    "snow",
+    "clouds"
 })
 public class ForecastType {
 
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner")
-    protected float dayTemperature;
+    protected float temperature;
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner")
-    protected float eveningTemperature;
+    protected float minTemperature;
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner")
-    protected float maximumTemperature;
+    protected float maxTemperature;
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner")
-    protected float minimumTemperature;
+    protected boolean rain;
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner")
-    protected float morningTemperature;
+    protected boolean snow;
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner")
-    protected float nightTemperature;
+    protected float clouds;
 
     /**
-     * Gets the value of the dayTemperature property.
+     * Gets the value of the temperature property.
      * 
      */
-    public float getDayTemperature() {
-        return dayTemperature;
+    public float getTemperature() {
+        return temperature;
     }
 
     /**
-     * Sets the value of the dayTemperature property.
+     * Sets the value of the temperature property.
      * 
      */
-    public void setDayTemperature(float value) {
-        this.dayTemperature = value;
+    public void setTemperature(float value) {
+        this.temperature = value;
     }
 
     /**
-     * Gets the value of the eveningTemperature property.
+     * Gets the value of the minTemperature property.
      * 
      */
-    public float getEveningTemperature() {
-        return eveningTemperature;
+    public float getMinTemperature() {
+        return minTemperature;
     }
 
     /**
-     * Sets the value of the eveningTemperature property.
+     * Sets the value of the minTemperature property.
      * 
      */
-    public void setEveningTemperature(float value) {
-        this.eveningTemperature = value;
+    public void setMinTemperature(float value) {
+        this.minTemperature = value;
     }
 
     /**
-     * Gets the value of the maximumTemperature property.
+     * Gets the value of the maxTemperature property.
      * 
      */
-    public float getMaximumTemperature() {
-        return maximumTemperature;
+    public float getMaxTemperature() {
+        return maxTemperature;
     }
 
     /**
-     * Sets the value of the maximumTemperature property.
+     * Sets the value of the maxTemperature property.
      * 
      */
-    public void setMaximumTemperature(float value) {
-        this.maximumTemperature = value;
+    public void setMaxTemperature(float value) {
+        this.maxTemperature = value;
     }
 
     /**
-     * Gets the value of the minimumTemperature property.
+     * Gets the value of the rain property.
      * 
      */
-    public float getMinimumTemperature() {
-        return minimumTemperature;
+    public boolean isRain() {
+        return rain;
     }
 
     /**
-     * Sets the value of the minimumTemperature property.
+     * Sets the value of the rain property.
      * 
      */
-    public void setMinimumTemperature(float value) {
-        this.minimumTemperature = value;
+    public void setRain(boolean value) {
+        this.rain = value;
     }
 
     /**
-     * Gets the value of the morningTemperature property.
+     * Gets the value of the snow property.
      * 
      */
-    public float getMorningTemperature() {
-        return morningTemperature;
+    public boolean isSnow() {
+        return snow;
     }
 
     /**
-     * Sets the value of the morningTemperature property.
+     * Sets the value of the snow property.
      * 
      */
-    public void setMorningTemperature(float value) {
-        this.morningTemperature = value;
+    public void setSnow(boolean value) {
+        this.snow = value;
     }
 
     /**
-     * Gets the value of the nightTemperature property.
+     * Gets the value of the clouds property.
      * 
      */
-    public float getNightTemperature() {
-        return nightTemperature;
+    public float getClouds() {
+        return clouds;
     }
 
     /**
-     * Sets the value of the nightTemperature property.
+     * Sets the value of the clouds property.
      * 
      */
-    public void setNightTemperature(float value) {
-        this.nightTemperature = value;
+    public void setClouds(float value) {
+        this.clouds = value;
     }
 
 }
