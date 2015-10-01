@@ -40,18 +40,7 @@ public class DatePlannerService {
 
         // handle restraunt data
         RestaurantDataType restaurant = new RestaurantDataType();
-        restaurant.setId("id");
-        restaurant.setLocation("Arhnem");
-        restaurant.setName("My name");
-        restaurant.setType("Chinees");
-        restaurant.setOpeningHours("0:00");
-        restaurant.setVicinity("blablabla");
         data.setRestaurantData(restaurant);
-
-        LocationType locationType = new LocationType();
-        locationType.setCity("Arnhem");
-        locationType.setLatitude(new BigDecimal(51.985103));
-        locationType.setLongitude(new BigDecimal(5.898730));
 
         WeatherService weatherService = new WeatherService();
         WeatherData weatherData = weatherService.retrieveWeather("Arnhem");
@@ -63,12 +52,9 @@ public class DatePlannerService {
         for (int i = 0; i < forecasts.size(); i++) {
             ForecastType forecastType = new ForecastType();
 
-            forecastType.setDayTemperature(forecasts.get(i).dayTemperature);
-            forecastType.setEveningTemperature(forecasts.get(i).eveningTemperature);
-            forecastType.setMaximumTemperature(forecasts.get(i).maximumTemperature);
-            forecastType.setMinimumTemperature(forecasts.get(i).minimumTemperature);
-            forecastType.setMorningTemperature(forecasts.get(i).morningTemperature);
-            forecastType.setNightTemperature(forecasts.get(i).nightTemperature);
+            forecastType.setTemperature(forecasts.get(i).dayTemperature);
+            forecastType.setMaxTemperature(forecasts.get(i).maximumTemperature);
+            forecastType.setMinTemperature(forecasts.get(i).minimumTemperature);
 
             weatherDataType.getForecast().add(forecastType);
         }
