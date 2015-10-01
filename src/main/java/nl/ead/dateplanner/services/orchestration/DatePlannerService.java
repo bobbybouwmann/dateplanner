@@ -1,5 +1,6 @@
 package nl.ead.dateplanner.services.orchestration;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.GregorianCalendar;
@@ -8,6 +9,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import nl.ead.dateplanner.services.*;
+import nl.ead.dateplanner.services.application.yahoo.Forecast;
+import nl.ead.dateplanner.services.application.yahoo.WeatherData;
 import nl.ead.dateplanner.services.application.yahoo.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -21,14 +24,14 @@ import javax.xml.namespace.QName;
 
 @Endpoint
 public class DatePlannerService {
-    
+
     public DatePlannerService() {
 
     }
 
     @PayloadRoot(localPart = "DateplannerRequest", namespace = "http://www.han.nl/schemas/dateplanner")
     @ResponsePayload
-    public DateplannerResponse getResults(@RequestPayload DateplannerRequest req) {
+    public DateplannerResponse getResults(@RequestPayload DateplannerRequest req) throws IOException {
         DateOptions options = req.getInput();
 
         DateplannerResponse response = new DateplannerResponse();
@@ -50,18 +53,29 @@ public class DatePlannerService {
         locationType.setLatitude(new BigDecimal(51.985103));
         locationType.setLongitude(new BigDecimal(5.898730));
 
-//        WeatherService weatherService = new WeatherService(locationType);
+        WeatherService weatherService = new WeatherService();
+        WeatherData weatherData = weatherService.retrieveWeather("Arnhem");
 
-        // Handle weather data
-        WeatherDataType weatherData = new WeatherDataType();
-        weatherData.setLocation("hello locat");
-        weatherData.setAstronomy("hello astrom");
-        weatherData.setForecast(BigDecimal.ONE);
-        data.setWeatherData(weatherData);
+        List<Forecast> forecasts = weatherData.getForecasts();
+
+        WeatherDataType weatherDataType = new WeatherDataType();
+
+        for (int i = 0; i < forecasts.size(); i++) {
+            ForecastType forecastType = new ForecastType();
+
+            forecastType.setDayTemperature(forecasts.get(i).dayTemperature);
+            forecastType.setEveningTemperature(forecasts.get(i).eveningTemperature);
+            forecastType.setMaximumTemperature(forecasts.get(i).maximumTemperature);
+            forecastType.setMinimumTemperature(forecasts.get(i).minimumTemperature);
+            forecastType.setMorningTemperature(forecasts.get(i).morningTemperature);
+            forecastType.setNightTemperature(forecasts.get(i).nightTemperature);
+
+            weatherDataType.getForecast().add(forecastType);
+        }
+
+        data.setWeatherData(weatherDataType);
 
         response.setResult(data);
-
-
 
         return response;
     }

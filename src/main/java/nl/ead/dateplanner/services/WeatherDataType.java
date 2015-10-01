@@ -1,7 +1,8 @@
 
 package nl.ead.dateplanner.services;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="location" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="astronomy" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="forecast" type="{http://www.w3.org/2001/XMLSchema}decimal"/>
+ *         &lt;element name="forecast" type="{http://www.han.nl/schemas/dateplanner}ForecastType" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -41,8 +42,8 @@ public class WeatherDataType {
     protected String location;
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner", required = true)
     protected String astronomy;
-    @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner", required = true)
-    protected BigDecimal forecast;
+    @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner")
+    protected List<ForecastType> forecast;
 
     /**
      * Gets the value of the location property.
@@ -95,25 +96,30 @@ public class WeatherDataType {
     /**
      * Gets the value of the forecast property.
      * 
-     * @return
-     *     possible object is
-     *     {@link BigDecimal }
-     *     
-     */
-    public BigDecimal getForecast() {
-        return forecast;
-    }
-
-    /**
-     * Sets the value of the forecast property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the forecast property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link BigDecimal }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getForecast().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link ForecastType }
+     * 
+     * 
      */
-    public void setForecast(BigDecimal value) {
-        this.forecast = value;
+    public List<ForecastType> getForecast() {
+        if (forecast == null) {
+            forecast = new ArrayList<ForecastType>();
+        }
+        return this.forecast;
     }
 
 }

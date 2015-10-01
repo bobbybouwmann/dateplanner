@@ -1,32 +1,43 @@
 package nl.ead.dateplanner.services.application.yahoo;
 
-import nl.ead.dateplanner.services.LocationType;
-import nl.ead.dateplanner.services.WeatherDataType;
+import net.aksingh.owmjapis.DailyForecast;
+import net.aksingh.owmjapis.OpenWeatherMap;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static net.aksingh.owmjapis.OpenWeatherMap.Units.METRIC;
 
 public class WeatherService {
 
-    private String weatherAPIUrl = "https://query.yahooapis.com/v1/public/yql?q=";
+    private Byte days = 7;
 
-    private String query = "";
+    public WeatherData retrieveWeather(String city) throws IOException {
+        OpenWeatherMap owm = new OpenWeatherMap(METRIC, "");
+        DailyForecast dailyForecast = owm.dailyForecastByCityName(city, "NL", days);
 
-    private String result;
+        List<Forecast> forecasts = new ArrayList<>();
 
-    public WeatherDataType retrieveWeather(LocationType locationType) {
-        WeatherDataType weatherDataType = new WeatherDataType();
+        for (int i = 0; i < days; i++) {
+            Forecast forecast = new Forecast();
 
-        result = "";
+            DailyForecast.Forecast currentForecast = dailyForecast.getForecastInstance(i);
 
-//        weatherDataType.setAstronomy();
-//        weatherDataType.setForecast();
-//        weatherDataType.setLocation();
+            forecast.dayTemperature = currentForecast.getTemperatureInstance().getDayTemperature();
+            forecast.eveningTemperature = currentForecast.getTemperatureInstance().getEveningTemperature();
+            forecast.maximumTemperature = currentForecast.getTemperatureInstance().getMaximumTemperature();
+            forecast.minimumTemperature = currentForecast.getTemperatureInstance().getMinimumTemperature();
+            forecast.morningTemperature = currentForecast.getTemperatureInstance().getMorningTemperature();
+            forecast.nightTemperature = currentForecast.getTemperatureInstance().getNightTemperature();
 
-        return weatherDataType;
+            forecasts.add(forecast);
+        }
+
+        WeatherData weatherData = new WeatherData();
+
+        weatherData.setForecasts(forecasts);
+
+        return weatherData;
     }
-
-    public String generateQuery() {
-        return "";
-//        return this.locationType.getCity();
-    }
-
-    // new StringBuilder(this.weatherAPIUrl);
 }

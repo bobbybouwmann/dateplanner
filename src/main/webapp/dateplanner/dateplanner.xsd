@@ -4,43 +4,38 @@
         xmlns:tns="http://www.han.nl/schemas/dateplanner"
         elementFormDefault="qualified">
 
-    <complexType name="LocationType">
-        <sequence>
-            <element name="longitude" type="decimal"/>
-            <element name="latitude" type="decimal"/>
-            <element name="city" type="string"/>
-        </sequence>
-    </complexType>
-
-    <complexType name="RadiusType">
-        <sequence>
-            <element name="radius" type="decimal"/>
-        </sequence>
-    </complexType>
-
     <complexType name="DateOptions">
         <sequence>
-            <element name="location" type="tns:LocationType" minOccurs="1" maxOccurs="1"></element>
-            <element name="radius" type="tns:RadiusType" minOccurs="1" maxOccurs="1"></element>
+            <element name="location" type="string" minOccurs="1" maxOccurs="1"></element>
+            <element name="radius" type="decimal" minOccurs="1" maxOccurs="1"></element>
+            <element name="daypart" type="string" minOccurs="1" maxOccurs="1"></element>
+            <element name="restaurantType" type="string" minOccurs="1" maxOccurs="unbounded"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="ForecastType">
+        <sequence>
+            <element name="temperature" type="float"></element>
+            <element name="rain" type="boolean"></element>
+            <element name="snow" type="boolean"></element>
+            <element name="clouds" type="float"></element>
         </sequence>
     </complexType>
 
     <complexType name="WeatherDataType">
         <sequence>
-            <element name="location" type="string"></element>
-            <element name="astronomy" type="string"></element>
-            <element name="forecast" type="decimal"></element>
+            <element name="forecast" type="tns:ForecastType" minOccurs="0" maxOccurs="unbounded"></element>
         </sequence>
     </complexType>
 
     <complexType name="RestaurantDataType">
         <sequence>
             <element name="name" type="string"></element>
-            <element name="location" type="string"></element>
             <element name="id" type="string"></element>
-            <element name="type" type="string" minOccurs="1"></element>
+            <element name="placeId" type="string"></element>
+            <element name="type" type="string" minOccurs="0" maxOccurs="unbounded"></element>
             <element name="vicinity" type="string"></element>
-            <element name="openingHours" type="string"></element>
+            <element name="openingHours" type="string" minOccurs="0" maxOccurs="unbounded"></element>
         </sequence>
     </complexType>
 
