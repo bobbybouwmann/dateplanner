@@ -78,6 +78,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ForecastType }
+     * 
+     */
+    public ForecastType createForecastType() {
+        return new ForecastType();
+    }
+
+    /**
      * Create an instance of {@link LocationType }
      * 
      */
