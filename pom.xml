@@ -90,7 +90,14 @@
             <scope>test</scope>
         </dependency>
         <!--End Unit Testing dependencies-->
-        
+
+        <!-- Google Places API package -->
+        <dependency>
+            <groupId>net.sf.sprockets</groupId>
+            <artifactId>sprockets</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+
         <!--Spring container managed transactions-->
         <dependency>
             <groupId>org.springframework</groupId>
