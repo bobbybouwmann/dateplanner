@@ -9,7 +9,7 @@ import java.util.List;
 
 import static net.aksingh.owmjapis.OpenWeatherMap.Units.METRIC;
 
-public class WeatherService {
+public class WeatherService implements IWeatherService {
 
     private Byte days = 7;
 
