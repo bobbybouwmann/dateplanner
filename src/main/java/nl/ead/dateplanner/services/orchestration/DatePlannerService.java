@@ -12,6 +12,7 @@ import nl.ead.dateplanner.services.*;
 import nl.ead.dateplanner.services.application.yahoo.Forecast;
 import nl.ead.dateplanner.services.application.yahoo.WeatherData;
 import nl.ead.dateplanner.services.application.yahoo.WeatherService;
+import nl.ead.dateplanner.services.business.DateTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -38,26 +39,15 @@ public class DatePlannerService {
 
         DateDataType data = new DateDataType();
 
-        // handle restraunt data
-        RestaurantDataType restaurant = new RestaurantDataType();
-        data.setRestaurantData(restaurant);
 
-        WeatherService weatherService = new WeatherService();
-        WeatherData weatherData = weatherService.retrieveWeather("Arnhem");
 
-        List<Forecast> forecasts = weatherData.getForecasts();
 
-        WeatherDataType weatherDataType = new WeatherDataType();
 
-        for (int i = 0; i < forecasts.size(); i++) {
-            ForecastType forecastType = new ForecastType();
 
-            forecastType.setTemperature(forecasts.get(i).dayTemperature);
-            forecastType.setMaxTemperature(forecasts.get(i).maximumTemperature);
-            forecastType.setMinTemperature(forecasts.get(i).minimumTemperature);
 
-            weatherDataType.getForecast().add(forecastType);
-        }
+        // Use the business service here as well!
+        DateTaskService dateTaskService = new DateTaskService();
+        WeatherDataType weatherDataType = dateTaskService.retrieveWeather(options.getLocation(), options.getDayPart().value());
 
         data.setWeatherData(weatherDataType);
 
@@ -65,4 +55,5 @@ public class DatePlannerService {
 
         return response;
     }
+
 }

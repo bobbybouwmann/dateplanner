@@ -1,6 +1,6 @@
 package nl.ead.dateplanner.services.application;
 
-public class DateFinderService {
+public class DateFinderService  {
 
     public String findWeather()
     {
