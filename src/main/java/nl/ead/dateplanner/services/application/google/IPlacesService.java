@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Thomas Kooi on 1-10-2015.
  */
-public interface IRestaurantService {
+public interface IPlacesService {
 
     /**
      * Get the restaurants near a given place
