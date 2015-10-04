@@ -3,18 +3,23 @@ package nl.ead.dateplanner.services.business;
 import nl.ead.dateplanner.services.ForecastType;
 import nl.ead.dateplanner.services.WeatherDataType;
 import nl.ead.dateplanner.services.application.yahoo.Forecast;
+import nl.ead.dateplanner.services.application.yahoo.IWeatherService;
 import nl.ead.dateplanner.services.application.yahoo.WeatherData;
-import nl.ead.dateplanner.services.application.yahoo.WeatherService;
 
 import java.io.IOException;
 import java.util.List;
 
 public class DateTaskService implements IDateTaskService {
 
+    private final IWeatherService weatherService;
+
+    public DateTaskService(IWeatherService weatherService) {
+        this.weatherService = weatherService;
+    }
+
     @Override
     public WeatherDataType retrieveWeather(String location, String dayPart) throws IOException {
-        WeatherService weatherService = new WeatherService();
-        WeatherData weatherData = weatherService.retrieveWeather(location, dayPart);
+        WeatherData weatherData = this.weatherService.retrieveWeather(location, dayPart);
 
         List<Forecast> forecasts = weatherData.getForecasts();
 

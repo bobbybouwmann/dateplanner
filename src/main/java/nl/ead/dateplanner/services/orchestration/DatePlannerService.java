@@ -13,6 +13,7 @@ import nl.ead.dateplanner.services.application.yahoo.Forecast;
 import nl.ead.dateplanner.services.application.yahoo.WeatherData;
 import nl.ead.dateplanner.services.application.yahoo.WeatherService;
 import nl.ead.dateplanner.services.business.DateTaskService;
+import nl.ead.dateplanner.services.business.IDateTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -26,8 +27,10 @@ import javax.xml.namespace.QName;
 @Endpoint
 public class DatePlannerService {
 
-    public DatePlannerService() {
+    private final IDateTaskService dateTaskService;
 
+    public DatePlannerService(IDateTaskService dateTaskService) {
+        this.dateTaskService = dateTaskService;
     }
 
     @PayloadRoot(localPart = "DateplannerRequest", namespace = "http://www.han.nl/schemas/dateplanner")
@@ -46,8 +49,7 @@ public class DatePlannerService {
 
 
         // Use the business service here as well!
-        DateTaskService dateTaskService = new DateTaskService();
-        WeatherDataType weatherDataType = dateTaskService.retrieveWeather(options.getLocation(), options.getDayPart().value());
+        WeatherDataType weatherDataType = this.dateTaskService.retrieveWeather(options.getLocation(), options.getDayPart().value());
 
         data.setWeatherData(weatherDataType);
 
