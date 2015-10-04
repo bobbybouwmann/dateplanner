@@ -19,14 +19,14 @@ public class WeatherService implements IWeatherService {
     /**
      * Retrieve the weather data for a number of days for a city.
      *
-     * @param location Location to retrieve the weather for.
+     * @param city Location to retrieve the weather for.
      * @param dayPart Part of the day that is used.
      * @return WeatherData
      * @throws IOException
      */
-    public WeatherData retrieveWeather(String location, String dayPart) throws IOException {
+    public WeatherData retrieveWeather(String city, String dayPart) throws IOException {
         OpenWeatherMap owm = new OpenWeatherMap(METRIC, "");
-        DailyForecast dailyForecast = owm.dailyForecastByCityName(location, "NL", days);
+        DailyForecast dailyForecast = owm.dailyForecastByCityName(city, "NL", days);
 
         List<Forecast> forecasts = new ArrayList<>();
 
