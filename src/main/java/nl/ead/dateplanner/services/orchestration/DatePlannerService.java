@@ -22,7 +22,7 @@ public class DatePlannerService {
 
     @PayloadRoot(localPart = "DateplannerRequest", namespace = "http://www.han.nl/schemas/dateplanner")
     @ResponsePayload
-    public DatePlannerResponse getResults(@RequestPayload DateplannerRequest req) throws IOException {
+    public DatePlannerResponse getResults(@RequestPayload DatePlannerRequest req) throws IOException {
         return dateTaskService.getDateOption(req.getInput());
     }
 }

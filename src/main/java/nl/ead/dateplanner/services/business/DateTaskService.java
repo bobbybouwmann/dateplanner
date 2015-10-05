@@ -1,6 +1,5 @@
 package nl.ead.dateplanner.services.business;
 
-import nl.ead.dateplanner.WeatherDataType;
 import nl.ead.dateplanner.services.DateOptions;
 import nl.ead.dateplanner.services.DatePlannerResponse;
 import nl.ead.dateplanner.services.application.IDateFinderService;

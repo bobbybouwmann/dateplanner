@@ -31,8 +31,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "input"
 })
-@XmlRootElement(name = "DateplannerRequest", namespace = "http://www.han.nl/schemas/dateplanner")
-public class DateplannerRequest {
+@XmlRootElement(name = "DatePlannerRequest", namespace = "http://www.han.nl/schemas/dateplanner")
+public class DatePlannerRequest {
 
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner", required = true)
     protected DateOptions input;

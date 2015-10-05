@@ -46,11 +46,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DateplannerRequest }
+     * Create an instance of {@link DatePlannerRequest }
      *
      */
-    public DateplannerRequest createDateplannerRequest() {
-        return new DateplannerRequest();
+    public DatePlannerRequest createDateplannerRequest() {
+        return new DatePlannerRequest();
     }
 
     /**
