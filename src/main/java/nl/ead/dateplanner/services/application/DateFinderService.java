@@ -25,9 +25,9 @@ public class DateFinderService {
 
 
     public void getDateOptions(String type, String location, String dayPart) {
-        List<Place> places = placesService.getPlacesNearLocation(type, location);
+        List<Place> places = placesService.getPlacesNearLocation("NL", type, location);
         try {
-            WeatherData weatherForecasts = weatherService.retrieveWeather(location, dayPart);
+            WeatherData weatherForecasts = weatherService.retrieveWeather("NL", location, dayPart);
         } catch (IOException e) {
             // TODO handle exception
         }
