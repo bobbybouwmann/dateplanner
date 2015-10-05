@@ -4,6 +4,6 @@ import java.io.IOException;
 
 public interface IWeatherService {
 
-    WeatherData retrieveWeather(String city, String dayPart) throws IOException;
+    WeatherData retrieveWeather(String countryCode, String city, String dayPart) throws IOException;
 
 }

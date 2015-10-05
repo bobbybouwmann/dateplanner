@@ -25,15 +25,16 @@ public class PlacesService implements IPlacesService {
     }
 
     /**
-     * Get places near the given location of given type
-     * @param type Place types to be found
-     * @param location Location where we will search for any places of given type
-     * @return A list of places from given type
+     * Get the places near a given location of given type
+     * @param countryCode code of the country e.g. "NL"
+     * @param city Query name of a city or location. For example: "Amsterdam"
+     * @param type The type of place to be searched for
+     * @return Places near by given city or location of given type.
      */
-    public List<Place> getPlacesNearLocation(String type, String location) {
+    public List<Place> getPlacesNearLocation(String countryCode, String city, String type) {
         ArrayList<Place> places = new ArrayList<>();
 
-        List<net.sf.sprockets.google.Place> placesFound = getPlacesNear(type, location);
+        List<net.sf.sprockets.google.Place> placesFound = getPlacesNear(type, city + "," + countryCode);
         for (net.sf.sprockets.google.Place place : placesFound) {
             Place converted = new Place();
 

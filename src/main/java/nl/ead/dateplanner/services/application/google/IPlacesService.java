@@ -10,9 +10,10 @@ public interface IPlacesService {
 
     /**
      * Get the places near a given location of given type
+     * @param countryCode code of the country e.g. "NL"
+     * @param city Query name of a city or location. For example: "Amsterdam"
      * @param type The type of place to be searched for
-     * @param location Query name of a city or location. For example: "Amsterdam, nl"
      * @return Places near by given city or location of given type.
      */
-    public List<Place> getPlacesNearLocation(String type, String location);
+    public List<Place> getPlacesNearLocation(String countryCode, String city, String type);
 }

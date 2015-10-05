@@ -24,9 +24,9 @@ public class WeatherService implements IWeatherService {
      * @return WeatherData
      * @throws IOException
      */
-    public WeatherData retrieveWeather(String city, String dayPart) throws IOException {
+    public WeatherData retrieveWeather(String countryCode, String city, String dayPart) throws IOException {
         OpenWeatherMap owm = new OpenWeatherMap(METRIC, "");
-        DailyForecast dailyForecast = owm.dailyForecastByCityName(city, "NL", days);
+        DailyForecast dailyForecast = owm.dailyForecastByCityName(city, countryCode, days);
 
         List<Forecast> forecasts = new ArrayList<>();
 
