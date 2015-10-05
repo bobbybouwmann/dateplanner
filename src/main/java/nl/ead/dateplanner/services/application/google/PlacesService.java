@@ -56,13 +56,21 @@ public class PlacesService implements IPlacesService {
      * @return List with places of given type or null if invalid search
      */
     private List<net.sf.sprockets.google.Place> getPlacesNear(String type, String location) {
-        String queryString = type + "s near " + location;
+        String queryString = type + " near " + location;
         try {
-            List<net.sf.sprockets.google.Place> places = Places.textSearch(new Places.Params().query(queryString).radius(1000).maxResults(100)).getResult();
-            return places;
+            List<net.sf.sprockets.google.Place> places = Places.textSearch(new Places.Params()
+                    .query(queryString)
+                    .radius(1000)
+                    .maxResults(100)
+            ).getResult();
+
+            // check if we found places.
+            if (places != null) {
+                return places;
+            }
         } catch (IOException e) {
-            // handle exception
+            // todo
         }
-        return null;
+        return new ArrayList<net.sf.sprockets.google.Place>();
     }
 }
