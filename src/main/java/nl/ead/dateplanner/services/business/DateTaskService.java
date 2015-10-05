@@ -6,6 +6,8 @@ import nl.ead.dateplanner.services.application.IDateFinderService;
 import nl.ead.dateplanner.services.application.google.Place;
 import nl.ead.dateplanner.services.application.yahoo.Forecast;
 
+import java.util.List;
+
 public class DateTaskService implements IDateTaskService {
     private final IDateFinderService dateFinder;
 
@@ -18,18 +20,18 @@ public class DateTaskService implements IDateTaskService {
         DatePlannerResponse response = new DatePlannerResponse();
 
         DateDataType value = new DateDataType();
-        value.setPlacesData(getPlacesDataType(dateOption));
-        value.setWeatherData(getWeatherDataType(dateOption));
+        value.setPlacesData(getPlacesDataType(dateOption.places));
+        value.setWeatherData(getWeatherDataType(dateOption.forecasts));
 
         response.setResult(value);
 
         return response;
     }
 
-    private PlaceDataType getPlacesDataType(DateOption dateOption) {
+    private PlaceDataType getPlacesDataType(List<Place> places) {
         PlaceDataType placeDataType = new PlaceDataType();
 
-        for (Place place : dateOption.places) {
+        for (Place place : places) {
             PlaceType placeType = new PlaceType();
             placeType.setId("");
             placeType.setName(place.name);
@@ -43,11 +45,10 @@ public class DateTaskService implements IDateTaskService {
         return placeDataType;
     }
 
-    private WeatherDataType getWeatherDataType(DateOption dateOption) {
+    private WeatherDataType getWeatherDataType(List<Forecast> forecasts) {
         WeatherDataType weatherDataType = new WeatherDataType();
 
-        for (int i = 0; i < dateOption.forecasts.size(); i++) {
-            Forecast forecast = dateOption.forecasts.get(i);
+        for (Forecast forecast : forecasts) {
             ForecastType forecastType = new ForecastType();
             forecastType.setClouds(forecast.clouds);
             forecastType.setMaxTemperature(forecast.maximumTemperature);
