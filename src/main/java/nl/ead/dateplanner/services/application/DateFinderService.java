@@ -24,10 +24,10 @@ public class DateFinderService {
     }
 
 
-    public void getDateOptions(String type, String location) {
+    public void getDateOptions(String type, String location, String dayPart) {
         List<Place> places = placesService.getPlacesNearLocation(type, location);
         try {
-            WeatherData weatherForecasts = weatherService.retrieveWeather(location);
+            WeatherData weatherForecasts = weatherService.retrieveWeather(location, dayPart);
         } catch (IOException e) {
             // TODO handle exception
         }
