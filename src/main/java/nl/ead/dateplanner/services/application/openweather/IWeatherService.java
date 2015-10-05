@@ -1,4 +1,4 @@
-package nl.ead.dateplanner.services.application.yahoo;
+package nl.ead.dateplanner.services.application.openweather;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package nl.ead.dateplanner.services.application.yahoo;
+package nl.ead.dateplanner.services.application.openweather;
 
 import net.aksingh.owmjapis.DailyForecast;
 import net.aksingh.owmjapis.OpenWeatherMap;

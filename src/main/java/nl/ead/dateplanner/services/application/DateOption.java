@@ -1,7 +1,7 @@
 package nl.ead.dateplanner.services.application;
 
 import nl.ead.dateplanner.services.application.google.Place;
-import nl.ead.dateplanner.services.application.yahoo.Forecast;
+import nl.ead.dateplanner.services.application.openweather.Forecast;
 
 import java.util.List;
 
