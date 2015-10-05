@@ -4,7 +4,7 @@ import nl.ead.dateplanner.services.*;
 import nl.ead.dateplanner.services.application.DateOption;
 import nl.ead.dateplanner.services.application.IDateFinderService;
 import nl.ead.dateplanner.services.application.google.Place;
-import nl.ead.dateplanner.services.application.yahoo.Forecast;
+import nl.ead.dateplanner.services.application.openweather.Forecast;
 
 import java.util.List;
 

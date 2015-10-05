@@ -1,7 +1,7 @@
 package nl.ead.dateplanner.services.application;
 
 import nl.ead.dateplanner.services.application.google.IPlacesService;
-import nl.ead.dateplanner.services.application.yahoo.IWeatherService;
+import nl.ead.dateplanner.services.application.openweather.IWeatherService;
 
 import java.io.IOException;
 
