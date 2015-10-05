@@ -8,29 +8,23 @@ import nl.ead.dateplanner.services.application.yahoo.WeatherData;
 import java.io.IOException;
 import java.util.List;
 
-public class DateFinderService {
+public class DateFinderService implements IDateFinderService {
 
     public DateFinderService(IPlacesService placesService, IWeatherService weatherService) {
         this.placesService = placesService;
         this.weatherService = weatherService;
     }
 
-    public String findWeather()
-    {
-//        WeatherService weatherService = new WeatherService(locationType);
-//
-//        return weatherService.generateQuery();
-        return "";
-    }
+    public List<DateOption> getDateOptions(String type, String countryCode, String location, String dayPart) {
+        List<Place> places = placesService.getPlacesNearLocation(countryCode, type, location);
 
-
-    public void getDateOptions(String type, String location, String dayPart) {
-        List<Place> places = placesService.getPlacesNearLocation("NL", type, location);
         try {
-            WeatherData weatherForecasts = weatherService.retrieveWeather("NL", location, dayPart);
+            WeatherData weatherForecasts = weatherService.retrieveWeather(countryCode, location, dayPart);
         } catch (IOException e) {
             // TODO handle exception
         }
+
+        return null;
     }
 
     private IPlacesService placesService;

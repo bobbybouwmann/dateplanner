@@ -1,43 +1,28 @@
 package nl.ead.dateplanner.services.business;
 
-import nl.ead.dateplanner.services.ForecastType;
-import nl.ead.dateplanner.services.WeatherDataType;
-import nl.ead.dateplanner.services.application.yahoo.Forecast;
-import nl.ead.dateplanner.services.application.yahoo.IWeatherService;
-import nl.ead.dateplanner.services.application.yahoo.WeatherData;
-
-import java.io.IOException;
-import java.util.List;
+import nl.ead.dateplanner.WeatherDataType;
+import nl.ead.dateplanner.services.DateOptions;
+import nl.ead.dateplanner.services.DatePlannerResponse;
+import nl.ead.dateplanner.services.application.IDateFinderService;
+import nl.ead.dateplanner.services.DateDataType;
 
 public class DateTaskService implements IDateTaskService {
+    private final IDateFinderService dateFinder;
 
-    private final IWeatherService weatherService;
-
-    public DateTaskService(IWeatherService weatherService) {
-        this.weatherService = weatherService;
+    public DateTaskService(IDateFinderService dateFinder) {
+        this.dateFinder = dateFinder;
     }
 
-    @Override
-    public WeatherDataType retrieveWeather(String location, String dayPart) throws IOException {
-        WeatherData weatherData = this.weatherService.retrieveWeather(location, dayPart);
+    public DatePlannerResponse getDateOption(DateOptions options) {
+        // TODO Use dateFinderService to retrieve information based on DateOptions
+        String type = "restaurant";
+        // options.getTypes()
 
-        List<Forecast> forecasts = weatherData.getForecasts();
+        dateFinder.getDateOptions(type, "NL", options.getLocation(), options.getDayPart().value());
 
-        WeatherDataType weatherDataType = new WeatherDataType();
-
-        for (int i = 0; i < forecasts.size(); i++) {
-            ForecastType forecastType = new ForecastType();
-
-            forecastType.setTemperature(forecasts.get(i).temperature);
-            forecastType.setMaxTemperature(forecasts.get(i).maximumTemperature);
-            forecastType.setMinTemperature(forecasts.get(i).minimumTemperature);
-            forecastType.setSnow(forecasts.get(i).snow);
-            forecastType.setRain(forecasts.get(i).rain);
-            forecastType.setClouds(forecasts.get(i).clouds);
-
-            weatherDataType.getForecast().add(forecastType);
-        }
-
-        return weatherDataType;
+        DatePlannerResponse response = new DatePlannerResponse();
+        DateDataType value = new DateDataType();
+        response.setResult(value);
+        return response;
     }
 }

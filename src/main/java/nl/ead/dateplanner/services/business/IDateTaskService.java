@@ -1,11 +1,9 @@
 package nl.ead.dateplanner.services.business;
 
-import nl.ead.dateplanner.services.WeatherDataType;
-
-import java.io.IOException;
+import nl.ead.dateplanner.services.DateOptions;
+import nl.ead.dateplanner.services.DatePlannerResponse;
 
 public interface IDateTaskService {
 
-    WeatherDataType retrieveWeather(String location, String dayPart) throws IOException;
-
+    DatePlannerResponse getDateOption(DateOptions options);
 }

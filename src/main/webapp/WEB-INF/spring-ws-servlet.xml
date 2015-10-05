@@ -32,4 +32,8 @@
                       targetNamespace="http://www.han.nl/schemas/dateplanner/definitions">
         <sws:xsd location="/dateplanner/dateplanner.xsd" />
     </sws:dynamic-wsdl>
+
+    <bean id="dateTaskService" factory-bean="dateTaskFactory" factory-method="create"/>
+    <bean id="dateTaskFactory" class="nl.ead.dateplanner.services.business.DateTaskFactory"/>
+
 </beans>

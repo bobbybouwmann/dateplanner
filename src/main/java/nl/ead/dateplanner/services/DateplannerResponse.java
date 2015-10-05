@@ -10,9 +10,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -24,26 +24,26 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "result"
 })
-@XmlRootElement(name = "DateplannerResponse", namespace = "http://www.han.nl/schemas/dateplanner")
-public class DateplannerResponse {
+@XmlRootElement(name = "DatePlannerResponse", namespace = "http://www.han.nl/schemas/dateplanner")
+public class DatePlannerResponse {
 
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner")
     protected DateDataType result;
 
     /**
      * Gets the value of the result property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link DateDataType }
-     *     
+     *
      */
     public DateDataType getResult() {
         return result;
@@ -51,11 +51,11 @@ public class DateplannerResponse {
 
     /**
      * Sets the value of the result property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link DateDataType }
-     *     
+     *
      */
     public void setResult(DateDataType value) {
         this.result = value;
