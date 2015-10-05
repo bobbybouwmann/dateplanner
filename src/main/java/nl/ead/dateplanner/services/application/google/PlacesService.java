@@ -44,6 +44,11 @@ public class PlacesService implements IPlacesService {
             converted.placeId = place.getPlaceId().getId();
 
             List<net.sf.sprockets.google.Place.OpeningHours> openinghours = place.getOpeningHours();
+            if (openinghours == null) {
+                places.add(converted);
+                return places;
+            }
+
             for (net.sf.sprockets.google.Place.OpeningHours anOpeningHour : openinghours) {
                 OpeningHour openingHour = new OpeningHour();
                 openingHour.closeDay = anOpeningHour.getCloseDay().name();
