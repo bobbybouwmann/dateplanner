@@ -10,16 +10,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for WeatherDataType complex type.
+ * <p>Java class for PlaceDataType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="WeatherDataType">
+ * &lt;complexType name="PlaceDataType">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="forecast" type="{http://www.han.nl/schemas/dateplanner}ForecastType" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="places" type="{http://www.han.nl/schemas/dateplanner}PlaceType" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,41 +29,41 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "WeatherDataType", namespace = "http://www.han.nl/schemas/dateplanner", propOrder = {
-    "forecast"
+@XmlType(name = "PlaceDataType", namespace = "http://www.han.nl/schemas/dateplanner", propOrder = {
+    "places"
 })
-public class WeatherDataType {
+public class PlaceDataType {
 
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner")
-    protected List<ForecastType> forecast;
+    protected List<PlaceType> places;
 
     /**
-     * Gets the value of the forecast property.
+     * Gets the value of the places property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the forecast property.
+     * This is why there is not a <CODE>set</CODE> method for the places property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getForecast().add(newItem);
+     *    getPlaces().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link ForecastType }
+     * {@link PlaceType }
      * 
      * 
      */
-    public List<ForecastType> getForecast() {
-        if (forecast == null) {
-            forecast = new ArrayList<ForecastType>();
+    public List<PlaceType> getPlaces() {
+        if (places == null) {
+            places = new ArrayList<PlaceType>();
         }
-        return this.forecast;
+        return this.places;
     }
 
 }

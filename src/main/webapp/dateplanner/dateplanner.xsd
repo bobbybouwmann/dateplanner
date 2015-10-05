@@ -34,10 +34,11 @@
 
     <complexType name="DateOptions">
         <sequence>
+            <element name="countryCode" type="string" minOccurs="1" maxOccurs="1"/>
             <element name="location" type="string" minOccurs="1" maxOccurs="1"/>
             <element name="radius" type="decimal" minOccurs="1" maxOccurs="1"/>
             <element name="dayPart" type="tns:DayParts" minOccurs="1" maxOccurs="1"/>
-            <element name="types" type="tns:PlaceTypes" minOccurs="1" maxOccurs="7"/>
+            <element name="types" type="tns:PlaceTypes" minOccurs="1" maxOccurs="1"/>
         </sequence>
     </complexType>
 
@@ -58,26 +59,32 @@
         </sequence>
     </complexType>
 
-    <complexType name="RestaurantDataType">
+    <complexType name="PlaceType">
         <sequence>
             <element name="name" type="string"/>
             <element name="id" type="string"/>
             <element name="placeId" type="string"/>
-            <element name="type" type="string" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="type" type="string"/>
             <element name="vicinity" type="string"/>
             <element name="openingHours" type="string" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="PlaceDataType">
+        <sequence>
+            <element name="places" type="tns:PlaceType" minOccurs="0" maxOccurs="unbounded"/>
         </sequence>
     </complexType>
 
     <complexType name="DateDataType">
         <sequence>
             <element name="weatherData" type="tns:WeatherDataType"/>
-            <element name="restaurantData" type="tns:RestaurantDataType"/>
+            <element name="placesData" type="tns:PlaceDataType"/>
             <element name="date" type="dateTime"/>
         </sequence>
     </complexType>
 
-    <element name="DateplannerRequest">
+    <element name="DatePlannerRequest">
         <complexType>
             <sequence>
                 <element name="input" type="tns:DateOptions" minOccurs="1" maxOccurs="1"/>
@@ -85,7 +92,7 @@
         </complexType>
     </element>
 
-    <element name="DateplannerResponse">
+    <element name="DatePlannerResponse">
         <complexType>
             <sequence>
                 <element name="result" type="tns:DateDataType" minOccurs="0"/>
