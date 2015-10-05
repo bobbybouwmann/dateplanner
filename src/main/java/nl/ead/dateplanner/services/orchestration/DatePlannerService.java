@@ -2,7 +2,8 @@ package nl.ead.dateplanner.services.orchestration;
 
 import java.io.IOException;
 
-import nl.ead.dateplanner.services.*;
+import nl.ead.dateplanner.services.DatePlannerRequest;
+import nl.ead.dateplanner.services.DatePlannerResponse;
 import nl.ead.dateplanner.services.business.IDateTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;

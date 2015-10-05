@@ -20,7 +20,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="weatherData" type="{http://www.han.nl/schemas/dateplanner}WeatherDataType"/>
- *         &lt;element name="restaurantData" type="{http://www.han.nl/schemas/dateplanner}RestaurantDataType"/>
+ *         &lt;element name="placesData" type="{http://www.han.nl/schemas/dateplanner}PlaceDataType"/>
  *         &lt;element name="date" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -33,7 +33,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DateDataType", namespace = "http://www.han.nl/schemas/dateplanner", propOrder = {
     "weatherData",
-    "restaurantData",
+    "placesData",
     "date"
 })
 public class DateDataType {
@@ -41,7 +41,7 @@ public class DateDataType {
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner", required = true)
     protected WeatherDataType weatherData;
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner", required = true)
-    protected RestaurantDataType restaurantData;
+    protected PlaceDataType placesData;
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner", required = true)
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar date;
@@ -71,27 +71,27 @@ public class DateDataType {
     }
 
     /**
-     * Gets the value of the restaurantData property.
+     * Gets the value of the placesData property.
      * 
      * @return
      *     possible object is
-     *     {@link RestaurantDataType }
+     *     {@link PlaceDataType }
      *     
      */
-    public RestaurantDataType getRestaurantData() {
-        return restaurantData;
+    public PlaceDataType getPlacesData() {
+        return placesData;
     }
 
     /**
-     * Sets the value of the restaurantData property.
+     * Sets the value of the placesData property.
      * 
      * @param value
      *     allowed object is
-     *     {@link RestaurantDataType }
+     *     {@link PlaceDataType }
      *     
      */
-    public void setRestaurantData(RestaurantDataType value) {
-        this.restaurantData = value;
+    public void setPlacesData(PlaceDataType value) {
+        this.placesData = value;
     }
 
     /**

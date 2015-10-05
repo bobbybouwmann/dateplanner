@@ -15,5 +15,5 @@ public interface IPlacesService {
      * @param type The type of place to be searched for
      * @return Places near by given city or location of given type.
      */
-    public List<Place> getPlacesNearLocation(String countryCode, String city, String type);
+    List<Place> getPlacesNearLocation(String countryCode, String city, String type);
 }

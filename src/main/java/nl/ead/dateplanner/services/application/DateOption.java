@@ -1,8 +1,14 @@
 package nl.ead.dateplanner.services.application;
 
-/**
- * Created by Thomas Kooi on 5-10-2015.
- */
+import nl.ead.dateplanner.services.application.google.Place;
+import nl.ead.dateplanner.services.application.yahoo.Forecast;
+
+import java.util.List;
+
 public class DateOption {
+
+    public List<Forecast> forecasts;
+
+    public List<Place> places;
 
 }

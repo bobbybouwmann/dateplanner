@@ -24,7 +24,7 @@ public class WeatherService implements IWeatherService {
      * @return WeatherData
      * @throws IOException
      */
-    public WeatherData retrieveWeather(String countryCode, String city, String dayPart) throws IOException {
+    public List<Forecast> retrieveWeather(String countryCode, String city, String dayPart) throws IOException {
         OpenWeatherMap owm = new OpenWeatherMap(METRIC, "");
         DailyForecast dailyForecast = owm.dailyForecastByCityName(city, countryCode, days);
 
@@ -38,10 +38,7 @@ public class WeatherService implements IWeatherService {
             forecasts.add(forecast);
         }
 
-        WeatherData weatherData = new WeatherData();
-        weatherData.setForecasts(forecasts);
-
-        return weatherData;
+        return forecasts;
     }
 
     /**
@@ -77,7 +74,7 @@ public class WeatherService implements IWeatherService {
      * @param dayPart Part of the day
      * @return Float
      */
-    protected Float getTemperatureByDayPart(DailyForecast.Forecast currentForecast, String dayPart) {
+    private Float getTemperatureByDayPart(DailyForecast.Forecast currentForecast, String dayPart) {
         Float temperature = currentForecast.getTemperatureInstance().getDayTemperature();
 
         switch(dayPart) {
