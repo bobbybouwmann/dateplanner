@@ -114,5 +114,12 @@
         </dependency>
         <!--End OpenWeatherMap dependency-->
 
+        <!--Start Google Geocode dependency-->
+        <dependency>
+            <groupId>com.google.code.geocoder-java</groupId>
+            <artifactId>geocoder-java</artifactId>
+            <version>0.16</version>
+        </dependency>
+        <!--End Google Geocode dependency-->
     </dependencies>
 </project>

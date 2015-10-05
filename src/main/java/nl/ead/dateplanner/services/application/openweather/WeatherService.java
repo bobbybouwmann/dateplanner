@@ -4,6 +4,7 @@ import net.aksingh.owmjapis.DailyForecast;
 import net.aksingh.owmjapis.OpenWeatherMap;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +20,15 @@ public class WeatherService implements IWeatherService {
     /**
      * Retrieve the weather data for a number of days for a city.
      *
-     * @param countryCode Country code for the city.
-     * @param city City to find the weather for.
+     * @param latitude Location latitude
+     * @param longitude Location longitude
      * @param dayPart Part of the day that is used.
      * @return List<Forecast>
      * @throws IOException
      */
-    public List<Forecast> retrieveWeather(String countryCode, String city, String dayPart) throws IOException {
+    public List<Forecast> retrieveWeather(BigDecimal latitude, BigDecimal longitude, String dayPart) throws IOException {
         OpenWeatherMap owm = new OpenWeatherMap(METRIC, "");
-        DailyForecast dailyForecast = owm.dailyForecastByCityName(city, countryCode, days);
+        DailyForecast dailyForecast = owm.dailyForecastByCoordinates(latitude.floatValue(), longitude.floatValue(), days);
 
         List<Forecast> forecasts = new ArrayList<>();
 

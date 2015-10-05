@@ -34,7 +34,6 @@
 
     <complexType name="DateOptions">
         <sequence>
-            <element name="countryCode" type="string" minOccurs="1" maxOccurs="1"/>
             <element name="location" type="string" minOccurs="1" maxOccurs="1"/>
             <element name="radius" type="decimal" minOccurs="1" maxOccurs="1"/>
             <element name="dayPart" type="tns:DayParts" minOccurs="1" maxOccurs="1"/>

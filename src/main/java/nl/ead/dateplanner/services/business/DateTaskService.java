@@ -6,6 +6,7 @@ import nl.ead.dateplanner.services.application.IDateFinderService;
 import nl.ead.dateplanner.services.application.google.Place;
 import nl.ead.dateplanner.services.application.openweather.Forecast;
 
+import java.io.IOException;
 import java.util.List;
 
 public class DateTaskService implements IDateTaskService {
@@ -15,8 +16,8 @@ public class DateTaskService implements IDateTaskService {
         this.dateFinder = dateFinder;
     }
 
-    public DatePlannerResponse getDateOption(DateOptions options) {
-        DateOption dateOption = dateFinder.getDateOptions(options.getTypes().value(), options.getCountryCode(), options.getLocation(), options.getDayPart().value());
+    public DatePlannerResponse getDateOption(DateOptions options) throws IOException {
+        DateOption dateOption = dateFinder.getDateOptions(options.getTypes().value(), options.getLocation(), options.getDayPart().value(), options.getRadius());
         DatePlannerResponse response = new DatePlannerResponse();
 
         DateDataType value = new DateDataType();

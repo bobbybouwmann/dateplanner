@@ -1,5 +1,6 @@
 package nl.ead.dateplanner.services.application.google;
 
+import java.math.BigDecimal;
 import java.util.List;
 import nl.ead.dateplanner.services.application.google.Place;
 
@@ -10,10 +11,11 @@ public interface IPlacesService {
 
     /**
      * Get the places near a given location of given type
-     * @param countryCode code of the country e.g. "NL"
-     * @param city Query name of a city or location. For example: "Amsterdam"
+     *
+     * @param latitude Location latitude
+     * @param longitude Location longitude
      * @param type The type of place to be searched for
      * @return Places near by given city or location of given type.
      */
-    List<Place> getPlacesNearLocation(String countryCode, String city, String type);
+    List<Place> getPlacesNearLocation(BigDecimal latitude, BigDecimal longitude, String type, BigDecimal radius);
 }

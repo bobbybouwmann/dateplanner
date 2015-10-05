@@ -1,9 +1,11 @@
 package nl.ead.dateplanner.services.application;
 
+import nl.ead.dateplanner.services.application.google.GeoLocation;
 import nl.ead.dateplanner.services.application.google.IPlacesService;
 import nl.ead.dateplanner.services.application.openweather.IWeatherService;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 public class DateFinderService implements IDateFinderService {
 
@@ -15,12 +17,17 @@ public class DateFinderService implements IDateFinderService {
         this.weatherService = weatherService;
     }
 
-    public DateOption getDateOptions(String type, String countryCode, String location, String dayPart) {
+    public DateOption getDateOptions(String type, String location, String dayPart, BigDecimal radius) throws IOException {
         DateOption dateOption = new DateOption();
 
+        GeoLocation geoLocation = new GeoLocation(location);
+
+        BigDecimal longitude = geoLocation.longitude;
+        BigDecimal latitude = geoLocation.latitude;
+
         try {
-            dateOption.places = placesService.getPlacesNearLocation(countryCode, type, location);
-            dateOption.forecasts = weatherService.retrieveWeather(countryCode, location, dayPart);
+            dateOption.places = placesService.getPlacesNearLocation(latitude, longitude, type, radius);
+            dateOption.forecasts = weatherService.retrieveWeather(latitude, longitude, dayPart);
         } catch (IOException e) {
             // TODO handle exception
         }

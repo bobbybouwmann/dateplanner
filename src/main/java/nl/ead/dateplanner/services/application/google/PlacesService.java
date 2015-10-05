@@ -3,6 +3,7 @@ package nl.ead.dateplanner.services.application.google;
 import net.sf.sprockets.google.Places;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,15 +11,17 @@ public class PlacesService implements IPlacesService {
 
     /**
      * Get the places near a given location of given type
-     * @param countryCode code of the country e.g. "NL"
-     * @param city Query name of a city or location. For example: "Amsterdam"
+     *
+     * @param latitude Location latitude
+     * @param longitude Location longitude
      * @param type The type of place to be searched for
+     * @param radius The radius for the location (in meters)
      * @return Places near by given city or location of given type.
      */
-    public List<Place> getPlacesNearLocation(String countryCode, String city, String type) {
+    public List<Place> getPlacesNearLocation(BigDecimal latitude, BigDecimal longitude, String type, BigDecimal radius) {
         List<Place> places = new ArrayList<>();
 
-        List<net.sf.sprockets.google.Place> placesFound = getPlacesNear(type, city);
+        List<net.sf.sprockets.google.Place> placesFound = getPlacesNear(type, latitude.doubleValue(), longitude.doubleValue(), radius.intValue());
         for (net.sf.sprockets.google.Place place : placesFound) {
             Place converted = new Place();
 
@@ -51,16 +54,17 @@ public class PlacesService implements IPlacesService {
 
     /**
      * Query the google places API through the Sprocket wrapper to find the places
+     *
      * @param type Place Type
-     * @param location Location where we will search for places
+     * @param latitude Location latitude
+     * @param longitude Location longitude
      * @return List with places of given type or null if invalid search
      */
-    private List<net.sf.sprockets.google.Place> getPlacesNear(String type, String location) {
-        String queryString = type + " near " + location;
+    private List<net.sf.sprockets.google.Place> getPlacesNear(String type, Double latitude, Double longitude, Integer radius) {
         try {
             List<net.sf.sprockets.google.Place> places = Places.textSearch(new Places.Params()
-                    .query(queryString)
-                    .radius(1000)
+                    .location(latitude, longitude)
+                    .radius(radius)
                     .maxResults(100)
             ).getResult();
 
