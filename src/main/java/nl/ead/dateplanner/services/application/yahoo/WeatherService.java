@@ -19,9 +19,10 @@ public class WeatherService implements IWeatherService {
     /**
      * Retrieve the weather data for a number of days for a city.
      *
-     * @param city Location to retrieve the weather for.
+     * @param countryCode Country code for the city.
+     * @param city City to find the weather for.
      * @param dayPart Part of the day that is used.
-     * @return WeatherData
+     * @return List<Forecast>
      * @throws IOException
      */
     public List<Forecast> retrieveWeather(String countryCode, String city, String dayPart) throws IOException {
