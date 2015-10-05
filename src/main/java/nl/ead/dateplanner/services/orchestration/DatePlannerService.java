@@ -21,7 +21,7 @@ public class DatePlannerService {
         this.dateTaskService = dateTaskService;
     }
 
-    @PayloadRoot(localPart = "DateplannerRequest", namespace = "http://www.han.nl/schemas/dateplanner")
+    @PayloadRoot(localPart = "DatePlannerRequest", namespace = "http://www.han.nl/schemas/dateplanner")
     @ResponsePayload
     public DatePlannerResponse getResults(@RequestPayload DatePlannerRequest req) throws IOException {
         return dateTaskService.getDateOption(req.getInput());
