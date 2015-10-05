@@ -9,22 +9,6 @@ import java.util.List;
 public class PlacesService implements IPlacesService {
 
     /**
-     * Get the restaurants near a given place
-     * @param place Query name of a city or location. For example: "Amsterdam, nl"
-     * @return Restaurants near by given city or location.
-     */
-	public List<net.sf.sprockets.google.Place> getRestaurantsNearPlace(String place) {
-        String queryString = "restaurants near " + place;
-        try {
-            List<net.sf.sprockets.google.Place> places = Places.textSearch(new Places.Params().query(queryString).keyword("restaurant")).getResult();
-            return places;
-        } catch (IOException e) {
-            // handle exception
-        }
-        return null;
-    }
-
-    /**
      * Get the places near a given location of given type
      * @param countryCode code of the country e.g. "NL"
      * @param city Query name of a city or location. For example: "Amsterdam"
@@ -32,9 +16,9 @@ public class PlacesService implements IPlacesService {
      * @return Places near by given city or location of given type.
      */
     public List<Place> getPlacesNearLocation(String countryCode, String city, String type) {
-        ArrayList<Place> places = new ArrayList<>();
+        List<Place> places = new ArrayList<>();
 
-        List<net.sf.sprockets.google.Place> placesFound = getPlacesNear(type, city + "," + countryCode);
+        List<net.sf.sprockets.google.Place> placesFound = getPlacesNear(type, city);
         for (net.sf.sprockets.google.Place place : placesFound) {
             Place converted = new Place();
 
@@ -44,25 +28,21 @@ public class PlacesService implements IPlacesService {
             converted.placeId = place.getPlaceId().getId();
 
             List<net.sf.sprockets.google.Place.OpeningHours> openinghours = place.getOpeningHours();
-            if (openinghours == null) {
-                places.add(converted);
-                return places;
+            if (openinghours != null) {
+                for (net.sf.sprockets.google.Place.OpeningHours anOpeningHour : openinghours) {
+                    OpeningHour openingHour = new OpeningHour();
+                    openingHour.closeDay = anOpeningHour.getCloseDay().name();
+                    openingHour.openDay = anOpeningHour.getOpenDay().name();
+
+                    openingHour.openHour = anOpeningHour.getOpenHour();
+                    openingHour.closeHour = anOpeningHour.getCloseHour();
+
+                    openingHour.openMinute = anOpeningHour.getOpenMinute();
+                    openingHour.closeMinute = anOpeningHour.getCloseMinute();
+
+                    converted.openingHours.add(openingHour);
+                }
             }
-
-            for (net.sf.sprockets.google.Place.OpeningHours anOpeningHour : openinghours) {
-                OpeningHour openingHour = new OpeningHour();
-                openingHour.closeDay = anOpeningHour.getCloseDay().name();
-                openingHour.openDay = anOpeningHour.getOpenDay().name();
-
-                openingHour.openHour = anOpeningHour.getOpenHour();
-                openingHour.closeHour = anOpeningHour.getCloseHour();
-
-                openingHour.openMinute = anOpeningHour.getOpenMinute();
-                openingHour.closeMinute = anOpeningHour.getCloseMinute();
-
-                converted.openingHours.add(openingHour);
-            }
-
             places.add(converted);
         }
 
@@ -78,7 +58,7 @@ public class PlacesService implements IPlacesService {
     private List<net.sf.sprockets.google.Place> getPlacesNear(String type, String location) {
         String queryString = type + "s near " + location;
         try {
-            List<net.sf.sprockets.google.Place> places = Places.textSearch(new Places.Params().query(queryString)).getResult();
+            List<net.sf.sprockets.google.Place> places = Places.textSearch(new Places.Params().query(queryString).radius(1000).maxResults(100)).getResult();
             return places;
         } catch (IOException e) {
             // handle exception
