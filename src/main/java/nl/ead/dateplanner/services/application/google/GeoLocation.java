@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 public class GeoLocation {
 
-    public BigDecimal longitude;
     public BigDecimal latitude;
+    public BigDecimal longitude;
 
-    public GeoLocation(BigDecimal longitude, BigDecimal latitude) {
-        this.longitude = longitude;
+    public GeoLocation(BigDecimal latitude, BigDecimal longitude) {
         this.latitude = latitude;
+        this.longitude = longitude;
     }
 }
