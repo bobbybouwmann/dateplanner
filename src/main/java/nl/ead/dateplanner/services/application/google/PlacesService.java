@@ -62,10 +62,12 @@ public class PlacesService implements IPlacesService {
      */
     private List<net.sf.sprockets.google.Place> getPlacesNear(String type, Double latitude, Double longitude, Integer radius) {
         try {
-            List<net.sf.sprockets.google.Place> places = Places.textSearch(new Places.Params()
-                    .location(latitude, longitude)
-                    .radius(radius)
-                    .maxResults(100)
+
+            List<net.sf.sprockets.google.Place> places = Places.nearbySearch(new Places.Params()
+                .location(longitude, latitude)
+                .types(type)
+                .radius(radius)
+                .maxResults(20), Places.Field.NAME, Places.Field.VICINITY, Places.Field.TYPES, Places.Field.OPENING_HOURS
             ).getResult();
 
             // check if we found places.
