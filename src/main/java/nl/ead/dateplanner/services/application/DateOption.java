@@ -7,8 +7,8 @@ import java.util.List;
 
 public class DateOption {
 
-    public List<Forecast> forecasts;
+    public Place place;
 
-    public List<Place> places;
+    public List<Forecast> forecast;
 
 }

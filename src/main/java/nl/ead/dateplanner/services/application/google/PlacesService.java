@@ -18,10 +18,10 @@ public class PlacesService implements IPlacesService {
      * @param radius The radius for the location (in meters)
      * @return Places near by given city or location of given type.
      */
-    public List<Place> getPlacesNearLocation(BigDecimal latitude, BigDecimal longitude, String type, BigDecimal radius) {
+    public List<Place> getPlacesNearLocation(Double latitude, Double longitude, String type, Double radius) {
         List<Place> places = new ArrayList<>();
 
-        List<net.sf.sprockets.google.Place> placesFound = getPlacesNear(type, latitude.doubleValue(), longitude.doubleValue(), radius.intValue());
+        List<net.sf.sprockets.google.Place> placesFound = getPlacesNear(type, latitude, longitude, radius.intValue());
         for (net.sf.sprockets.google.Place place : placesFound) {
             Place converted = new Place();
 
@@ -66,7 +66,7 @@ public class PlacesService implements IPlacesService {
         try {
 
             List<net.sf.sprockets.google.Place> places = Places.nearbySearch(new Places.Params()
-                .location(longitude, latitude)
+                .location(latitude, longitude)
                 .types(type)
                 .radius(radius)
                 .maxResults(20), Places.Field.NAME, Places.Field.VICINITY, Places.Field.TYPES, Places.Field.OPENING_HOURS, Places.Field.GEOMETRY

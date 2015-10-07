@@ -17,5 +17,5 @@ public interface IPlacesService {
      * @param type The type of place to be searched for
      * @return Places near by given city or location of given type.
      */
-    List<Place> getPlacesNearLocation(BigDecimal latitude, BigDecimal longitude, String type, BigDecimal radius);
+    List<Place> getPlacesNearLocation(Double latitude, Double longitude, String type, Double radius);
 }

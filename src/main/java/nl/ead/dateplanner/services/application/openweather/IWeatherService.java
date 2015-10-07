@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface IWeatherService {
 
-    List<Forecast> retrieveWeather(BigDecimal latitude, BigDecimal longitude, String dayPart) throws IOException;
+    List<Forecast> retrieveWeather(Float latitude, Float longitude, String dayPart) throws IOException;
 
 }

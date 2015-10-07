@@ -26,9 +26,9 @@ public class WeatherService implements IWeatherService {
      * @return List<Forecast>
      * @throws IOException
      */
-    public List<Forecast> retrieveWeather(BigDecimal latitude, BigDecimal longitude, String dayPart) throws IOException {
+    public List<Forecast> retrieveWeather(Float latitude, Float longitude, String dayPart) throws IOException {
         OpenWeatherMap owm = new OpenWeatherMap(METRIC, "");
-        DailyForecast dailyForecast = owm.dailyForecastByCoordinates(latitude.floatValue(), longitude.floatValue(), days);
+        DailyForecast dailyForecast = owm.dailyForecastByCoordinates(latitude, longitude, days);
 
         List<Forecast> forecasts = new ArrayList<>();
 
