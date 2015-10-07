@@ -1,6 +1,9 @@
 package nl.ead.dateplanner.services.business;
 
-import nl.ead.dateplanner.services.*;
+import nl.ead.dateplanner.services.DateOptions;
+import nl.ead.dateplanner.services.DatePlannerResponse;
+import nl.ead.dateplanner.services.ForecastType;
+import nl.ead.dateplanner.services.PlaceType;
 import nl.ead.dateplanner.services.application.DateOption;
 import nl.ead.dateplanner.services.application.IDateFinderService;
 import nl.ead.dateplanner.services.application.google.Place;
@@ -92,7 +95,7 @@ public class DateTaskService implements IDateTaskService {
         placeType.setLongitude(new BigDecimal(place.longitude));
         placeType.setOpeningHours(place.openingHours.toString());
         placeType.setType(place.type);
-        placeType.setVicinity(place.vicinety);
+        placeType.setVicinity(place.vicinity);
 
         return placeType;
     }
