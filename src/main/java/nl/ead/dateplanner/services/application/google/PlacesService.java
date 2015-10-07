@@ -3,7 +3,6 @@ package nl.ead.dateplanner.services.application.google;
 import net.sf.sprockets.google.Places;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class PlacesService implements IPlacesService {
 
             converted.name = place.getName();
             converted.type = type;
-            converted.vicinety = place.getVicinity();
+            converted.vicinity = place.getVicinity();
             converted.placeId = place.getPlaceId().getId();
             converted.latitude = place.getLatitude();
             converted.longitude = place.getLongitude();

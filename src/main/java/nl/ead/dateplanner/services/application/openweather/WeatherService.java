@@ -4,7 +4,6 @@ import net.aksingh.owmjapis.DailyForecast;
 import net.aksingh.owmjapis.OpenWeatherMap;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,14 +56,10 @@ public class WeatherService implements IWeatherService {
         forecast.maximumTemperature = currentForecast.getTemperatureInstance().getMaximumTemperature();
         forecast.minimumTemperature = currentForecast.getTemperatureInstance().getMinimumTemperature();
         forecast.clouds = currentForecast.getPercentageOfClouds();
-
-        if (currentForecast.hasRain()) {
-            forecast.rain = true;
-        }
-
-        if (currentForecast.hasSnow()) {
-            forecast.snow = true;
-        }
+        forecast.rain = currentForecast.getRain();
+        forecast.snow = currentForecast.getSnow();
+        forecast.clouds = currentForecast.getPercentageOfClouds();
+        forecast.date = currentForecast.getDateTime();
 
         return forecast;
     }
