@@ -57,14 +57,9 @@ public class WeatherService implements IWeatherService {
         forecast.maximumTemperature = currentForecast.getTemperatureInstance().getMaximumTemperature();
         forecast.minimumTemperature = currentForecast.getTemperatureInstance().getMinimumTemperature();
         forecast.clouds = currentForecast.getPercentageOfClouds();
-
-        if (currentForecast.hasRain()) {
-            forecast.rain = true;
-        }
-
-        if (currentForecast.hasSnow()) {
-            forecast.snow = true;
-        }
+        forecast.rain = currentForecast.getRain();
+        forecast.snow = currentForecast.getSnow();
+        forecast.clouds = currentForecast.getPercentageOfClouds();
 
         return forecast;
     }

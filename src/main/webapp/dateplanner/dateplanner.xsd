@@ -46,8 +46,8 @@
             <element name="temperature" type="float"/>
             <element name="minTemperature" type="float"/>
             <element name="maxTemperature" type="float"/>
-            <element name="rain" type="boolean"/>
-            <element name="snow" type="boolean"/>
+            <element name="rain" type="float"/>
+            <element name="snow" type="float"/>
             <element name="clouds" type="float"/>
         </sequence>
     </complexType>
