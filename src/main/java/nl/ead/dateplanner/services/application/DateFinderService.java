@@ -58,6 +58,7 @@ public class DateFinderService implements IDateFinderService {
                 DateOption opt = new DateOption();
                 opt.place = places.get(i);
                 opt.forecast = forecastsAsyncs.get(i).get();
+                optionsDate.add(opt);
             }
 
             return optionsDate;
