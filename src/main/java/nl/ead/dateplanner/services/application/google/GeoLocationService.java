@@ -29,6 +29,7 @@ public class GeoLocationService implements IGeoLocationService {
         } catch (IOException e) {
             // TODO log and handle exception
         }
+
         return null;
     }
 }

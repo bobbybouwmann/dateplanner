@@ -4,7 +4,6 @@ import net.aksingh.owmjapis.DailyForecast;
 import net.aksingh.owmjapis.OpenWeatherMap;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +25,9 @@ public class WeatherService implements IWeatherService {
      * @return List<Forecast>
      * @throws IOException
      */
-    public List<Forecast> retrieveWeather(BigDecimal latitude, BigDecimal longitude, String dayPart) throws IOException {
+    public List<Forecast> retrieveWeather(Float latitude, Float longitude, String dayPart) throws IOException {
         OpenWeatherMap owm = new OpenWeatherMap(METRIC, "");
-        DailyForecast dailyForecast = owm.dailyForecastByCoordinates(latitude.floatValue(), longitude.floatValue(), days);
+        DailyForecast dailyForecast = owm.dailyForecastByCoordinates(latitude, longitude, days);
 
         List<Forecast> forecasts = new ArrayList<>();
 
@@ -57,14 +56,10 @@ public class WeatherService implements IWeatherService {
         forecast.maximumTemperature = currentForecast.getTemperatureInstance().getMaximumTemperature();
         forecast.minimumTemperature = currentForecast.getTemperatureInstance().getMinimumTemperature();
         forecast.clouds = currentForecast.getPercentageOfClouds();
-
-        if (currentForecast.hasRain()) {
-            forecast.rain = true;
-        }
-
-        if (currentForecast.hasSnow()) {
-            forecast.snow = true;
-        }
+        forecast.rain = currentForecast.getRain();
+        forecast.snow = currentForecast.getSnow();
+        forecast.clouds = currentForecast.getPercentageOfClouds();
+        forecast.date = currentForecast.getDateTime();
 
         return forecast;
     }

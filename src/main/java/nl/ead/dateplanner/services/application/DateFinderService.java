@@ -10,14 +10,16 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 
 import java.io.IOException;
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
 
 public class DateFinderService implements IDateFinderService {
 
     private IPlacesService placesService;
+
     private IWeatherService weatherService;
+
     private IGeoLocationService locationService;
 
     public DateFinderService(IPlacesService placesService, IWeatherService weatherService, IGeoLocationService locationService) {
@@ -26,38 +28,55 @@ public class DateFinderService implements IDateFinderService {
         this.locationService = locationService;
     }
 
-    public DateOption getDateOptions(String type, String location, String dayPart, BigDecimal radius) throws IOException {
-        DateOption dateOption = new DateOption();
-
+    public List<DateOption> getDateOptions(String type, String location, String dayPart, Double radius) throws IOException {
         // Find the coordinates for the location
         GeoLocation geoLocation = locationService.getLocation(location);
-        BigDecimal longitude = geoLocation.longitude;
-        BigDecimal latitude = geoLocation.latitude;
+        Double longitude = geoLocation.longitude.doubleValue();
+        Double latitude = geoLocation.latitude.doubleValue();
 
         try {
-            Future<List<Place>> places = getPlacesNearLocation(type, radius, longitude, latitude);
-            Future<List<Forecast>> forecasts = getForecasts(dayPart, longitude, latitude);
+            List<Place> places = getPlacesNearLocation(latitude, longitude, type, radius);
 
-            // Wait until we have the results from both calls
-            while (!places.isDone() && !forecasts.isDone()) {
+            List<Future<List<Forecast>>> asyncForecasts = new ArrayList<>();
+            for (Place place : places) {
+                Future<List<Forecast>> forecasts = getForecasts(place.latitude, place.longitude, dayPart);
+                asyncForecasts.add(forecasts);
             }
-            dateOption.places = places.get();
-            dateOption.forecasts =  forecasts.get();
+
+            Boolean isWaiting = true;
+            while (isWaiting) {
+                isWaiting = false;
+
+                for (Future<List<Forecast>> a : asyncForecasts) {
+                    if (!a.isDone()) {
+                        isWaiting = true;
+                    }
+                }
+            }
+
+            List<DateOption> dateOptions = new ArrayList<>();
+            for (int i = 0; i < places.size(); i++) {
+                DateOption dateOption = new DateOption();
+                dateOption.place = places.get(i);
+                dateOption.forecast = asyncForecasts.get(i).get();
+                dateOptions.add(dateOption);
+            }
+
+            return dateOptions;
         } catch (Exception e) {
             // TODO handle exception
         }
 
-        return dateOption;
+        return new ArrayList<>();
     }
 
     @Async
-    private Future<List<Forecast>> getForecasts(String dayPart, BigDecimal longitude, BigDecimal latitude) throws IOException {
-        return new AsyncResult<>(weatherService.retrieveWeather(latitude, longitude, dayPart));
+    private Future<List<Forecast>> getForecasts(Double latitude, Double longitude, String dayPart) throws IOException {
+        return new AsyncResult<>(weatherService.retrieveWeather(latitude.floatValue(), longitude.floatValue(), dayPart));
     }
 
-    @Async
-    private Future<List<Place>> getPlacesNearLocation(String type, BigDecimal radius, BigDecimal longitude, BigDecimal latitude) {
-        return new AsyncResult<>(placesService.getPlacesNearLocation(latitude, longitude, type, radius));
+    private List<Place> getPlacesNearLocation(Double latitude, Double longitude, String type, Double radius) {
+        return (placesService.getPlacesNearLocation(latitude, longitude, type, radius));
     }
 
 }

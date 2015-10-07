@@ -1,5 +1,7 @@
 package nl.ead.dateplanner.services.application.openweather;
 
+import java.util.Date;
+
 public class Forecast {
 
     public Float clouds;
@@ -8,10 +10,12 @@ public class Forecast {
 
     public Float minimumTemperature;
 
-    public Boolean rain = false;
+    public Float rain;
 
-    public Boolean snow = false;
+    public Float snow;
 
     public Float temperature;
+
+    public Date date;
 
 }

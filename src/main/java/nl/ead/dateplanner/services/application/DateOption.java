@@ -8,8 +8,14 @@ import java.util.List;
 
 public class DateOption {
 
+<<<<<<< HEAD
     public List<Forecast> forecasts = new ArrayList<>();
 
     public List<Place> places = new ArrayList<>();
+=======
+    public Place place;
+
+    public List<Forecast> forecast;
+>>>>>>> dev
 
 }
