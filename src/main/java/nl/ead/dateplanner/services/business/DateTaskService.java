@@ -1,15 +1,19 @@
 package nl.ead.dateplanner.services.business;
 
-import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 import nl.ead.dateplanner.services.*;
 import nl.ead.dateplanner.services.application.DateOption;
 import nl.ead.dateplanner.services.application.IDateFinderService;
 import nl.ead.dateplanner.services.application.google.Place;
 import nl.ead.dateplanner.services.application.openweather.Forecast;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class DateTaskService implements IDateTaskService {
@@ -19,30 +23,64 @@ public class DateTaskService implements IDateTaskService {
         this.dateFinder = dateFinder;
     }
 
-    public DatePlannerResponse getDateOption(DateOptions options) throws IOException {
+    public DatePlannerResponse getDateOption(DateOptions options) throws IOException, DatatypeConfigurationException {
         List<DateOption> dateOptions = dateFinder.getDateOptions(options.getTypes().value(), options.getLocation(), options.getDayPart().value(), options.getRadius().doubleValue());
+
+        List<PlaceType> placeTypes = this.getPlaceTypes(dateOptions);
+
+        // TODO: Sort the "placeTypes" list here, return a list with options based on distance
+
         DatePlannerResponse response = new DatePlannerResponse();
 
-        // TODO: return a list with options based on distance
+        response.getPlaces().addAll(placeTypes);
 
-        for (int i = 0; i < dateOptions.size(); i++) {
-            DateOption dateOption = dateOptions.get(i);
+        return response;
+    }
 
+    private List<PlaceType> getPlaceTypes(List<DateOption> dateOptions) throws DatatypeConfigurationException {
+        List<PlaceType> places = new ArrayList<>();
+
+        for (DateOption dateOption : dateOptions) {
             Forecast forecast = this.getBestForecast(dateOption.forecast);
 
             ForecastType forecastType = this.createForecastType(forecast);
 
             PlaceType placeType = this.createPlaceType(dateOption.place);
 
-            // TODO: Date is based on the selected weather day (dateTime of forecast)
-            placeType.setDate(new XMLGregorianCalendarImpl());
+            placeType.setDate(this.setDate(forecast.date));
 
             placeType.setForecast(forecastType);
 
-            response.getPlaces().add(placeType);
+            places.add(placeType);
         }
 
-        return response;
+        return places;
+    }
+
+    private Forecast getBestForecast(List<Forecast> forecasts) {
+        Float highestTemperature = 0f;
+        int index = 0;
+
+        for (int i = 0; i < forecasts.size(); i++) {
+            if (forecasts.get(i).temperature > highestTemperature) {
+                highestTemperature = forecasts.get(i).temperature;
+                index = i;
+            }
+        }
+
+        return forecasts.get(index);
+    }
+
+    private ForecastType createForecastType(Forecast forecast) {
+        ForecastType forecastType = new ForecastType();
+
+        forecastType.setClouds(forecast.clouds);
+        forecastType.setSnow(forecast.snow);
+        forecastType.setMaxTemperature(forecast.maximumTemperature);
+        forecastType.setMinTemperature(forecast.minimumTemperature);
+        forecastType.setTemperature(forecast.temperature);
+
+        return forecastType;
     }
 
     private PlaceType createPlaceType(Place place) {
@@ -59,29 +97,11 @@ public class DateTaskService implements IDateTaskService {
         return placeType;
     }
 
-    private ForecastType createForecastType(Forecast forecast) {
-        ForecastType forecastType = new ForecastType();
+    private XMLGregorianCalendar setDate(Date date) throws DatatypeConfigurationException {
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        gregorianCalendar.setTime(date);
 
-        forecastType.setClouds(forecast.clouds);
-        forecastType.setSnow(forecast.snow);
-        forecastType.setMaxTemperature(forecast.maximumTemperature);
-        forecastType.setMinTemperature(forecast.minimumTemperature);
-        forecastType.setTemperature(forecast.temperature);
-
-        return forecastType;
+        return DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
     }
 
-    private Forecast getBestForecast(List<Forecast> forecasts) {
-        Float highestTemperature = 0f;
-        int index = 0;
-
-        for(int i = 0; i < forecasts.size(); i++) {
-            if (forecasts.get(i).temperature > highestTemperature) {
-                highestTemperature = forecasts.get(i).temperature;
-                index = i;
-            }
-        }
-
-        return forecasts.get(index);
-    }
 }
