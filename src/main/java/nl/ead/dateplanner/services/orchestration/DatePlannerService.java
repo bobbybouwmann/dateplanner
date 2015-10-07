@@ -11,6 +11,8 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+
 @Endpoint
 public class DatePlannerService {
 
@@ -23,7 +25,7 @@ public class DatePlannerService {
 
     @PayloadRoot(localPart = "DatePlannerRequest", namespace = "http://www.han.nl/schemas/dateplanner")
     @ResponsePayload
-    public DatePlannerResponse getResults(@RequestPayload DatePlannerRequest req) throws IOException {
+    public DatePlannerResponse getResults(@RequestPayload DatePlannerRequest req) throws IOException, DatatypeConfigurationException {
         return dateTaskService.getDateOption(req.getInput());
     }
 }
