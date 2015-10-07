@@ -11,6 +11,8 @@ public class Place {
     public String placeId;
     public String name;
     public String vicinety;
+    public Double latitude;
+    public Double longitude;
 
     public ArrayList<OpeningHour> openingHours = new ArrayList<>();
 
