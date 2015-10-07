@@ -29,7 +29,9 @@ public class PlacesService implements IPlacesService {
             converted.type = type;
             converted.vicinety = place.getVicinity();
             converted.placeId = place.getPlaceId().getId();
-
+            converted.latitude = place.getLatitude();
+            converted.longitude = place.getLongitude();
+            
             List<net.sf.sprockets.google.Place.OpeningHours> openinghours = place.getOpeningHours();
             if (openinghours != null) {
                 for (net.sf.sprockets.google.Place.OpeningHours anOpeningHour : openinghours) {
@@ -67,7 +69,7 @@ public class PlacesService implements IPlacesService {
                 .location(longitude, latitude)
                 .types(type)
                 .radius(radius)
-                .maxResults(20), Places.Field.NAME, Places.Field.VICINITY, Places.Field.TYPES, Places.Field.OPENING_HOURS
+                .maxResults(20), Places.Field.NAME, Places.Field.VICINITY, Places.Field.TYPES, Places.Field.OPENING_HOURS, Places.Field.GEOMETRY
             ).getResult();
 
             // check if we found places.
