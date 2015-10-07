@@ -60,6 +60,7 @@ public class WeatherService implements IWeatherService {
         forecast.rain = currentForecast.getRain();
         forecast.snow = currentForecast.getSnow();
         forecast.clouds = currentForecast.getPercentageOfClouds();
+        forecast.date = currentForecast.getDateTime();
 
         return forecast;
     }

@@ -1,6 +1,6 @@
 package nl.ead.dateplanner.services.application.openweather;
 
-import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
+import java.util.Date;
 
 public class Forecast {
 
@@ -16,6 +16,6 @@ public class Forecast {
 
     public Float temperature;
 
-    public XMLGregorianCalendarImpl date;
+    public Date date;
 
 }
