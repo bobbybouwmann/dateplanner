@@ -22,6 +22,11 @@ public class DateTaskService implements IDateTaskService {
         List<DateOption> dateOptions = dateFinder.getDateOptions(options.getTypes().value(), options.getLocation(), options.getDayPart().value(), options.getRadius().doubleValue());
         DatePlannerResponse response = new DatePlannerResponse();
 
+        // Algorithm to check if the weather is good for the place (sort by temperature)
+        // and the place is open (if available)
+
+        // return a list with options based on distance
+
         for (int i = 0; i < dateOptions.size(); i++) {
             DateOption dateOption = dateOptions.get(i);
 
@@ -33,7 +38,6 @@ public class DateTaskService implements IDateTaskService {
             placeType.setOpeningHours(dateOption.place.openingHours.toString());
             placeType.setType(dateOption.place.type);
             placeType.setVicinity(dateOption.place.vicinety);
-            placeType.setDate(new XMLGregorianCalendarImpl());
 
             ForecastType forecastType = new ForecastType();
             forecastType.setClouds(dateOption.forecast.get(0).clouds);
@@ -41,6 +45,9 @@ public class DateTaskService implements IDateTaskService {
             forecastType.setMaxTemperature(dateOption.forecast.get(0).maximumTemperature);
             forecastType.setMinTemperature(dateOption.forecast.get(0).minimumTemperature);
             forecastType.setTemperature(dateOption.forecast.get(0).temperature);
+
+            // Date is based on the selected weather day (dateTime of forecast)
+            placeType.setDate(new XMLGregorianCalendarImpl());
 
             placeType.setForecast(forecastType);
 
