@@ -5,6 +5,7 @@ import nl.ead.dateplanner.services.application.openweather.Forecast;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TestDateFinderService implements IDateFinderService {
@@ -18,6 +19,7 @@ public class TestDateFinderService implements IDateFinderService {
         forecastOne.minimumTemperature = 0f;
         forecastOne.maximumTemperature = 0f;
         forecastOne.temperature = 0f;
+        forecastOne.date = new Date();
 
         Forecast forecastTwo = new Forecast();
         forecastTwo.clouds = 0f;
@@ -26,6 +28,7 @@ public class TestDateFinderService implements IDateFinderService {
         forecastTwo.minimumTemperature = 0f;
         forecastTwo.maximumTemperature = 0f;
         forecastTwo.temperature = 0f;
+        forecastTwo.date = new Date();
 
         Place place = new Place();
         place.latitude = 50.12;
