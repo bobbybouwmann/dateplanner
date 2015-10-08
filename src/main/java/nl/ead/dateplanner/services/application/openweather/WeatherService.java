@@ -72,7 +72,7 @@ public class WeatherService implements IWeatherService {
      * @return Float
      */
     private Float getTemperatureByDayPart(DailyForecast.Forecast currentForecast, String dayPart) {
-        Float temperature = currentForecast.getTemperatureInstance().getDayTemperature();
+        Float temperature;
 
         switch(dayPart) {
             case "morning":
@@ -89,6 +89,10 @@ public class WeatherService implements IWeatherService {
 
             case "night":
                 temperature = currentForecast.getTemperatureInstance().getNightTemperature();
+            break;
+
+            default:
+                temperature = currentForecast.getTemperatureInstance().getDayTemperature();
             break;
         }
 
