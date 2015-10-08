@@ -33,8 +33,8 @@ public class DateTaskServiceTest extends TestCase {
 
         DatePlannerResponse datePlannerResponse = dateTaskService.getDateOption(dateOptions);
 
-        assertEquals(datePlannerResponse.getPlaces().get(0).getType(), "restaurant");
         assertEquals(datePlannerResponse.getPlaces().size(), 2);
+        assertEquals(datePlannerResponse.getPlaces().get(0).getType(), "restaurant");
     }
 
 }
