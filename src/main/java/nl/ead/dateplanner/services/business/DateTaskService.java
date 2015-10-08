@@ -14,10 +14,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 public class DateTaskService implements IDateTaskService {
     private final IDateFinderService dateFinder;
@@ -31,7 +28,13 @@ public class DateTaskService implements IDateTaskService {
 
         List<PlaceType> placeTypes = this.getPlaceTypes(dateOptions);
 
-        // TODO: Sort the "placeTypes" list here, return a list with options based on distance
+        // Sort by highest temperature
+        Collections.sort(placeTypes, new Comparator<PlaceType>() {
+            @Override
+            public int compare(PlaceType lhs, PlaceType rhs) {
+                return Float.compare(rhs.getForecast().getTemperature(), lhs.getForecast().getTemperature());
+            }
+        });
 
         DatePlannerResponse response = new DatePlannerResponse();
 
