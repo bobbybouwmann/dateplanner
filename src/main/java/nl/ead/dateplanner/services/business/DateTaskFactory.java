@@ -6,6 +6,7 @@ public class DateTaskFactory {
 
     public IDateTaskService create() {
         DateFinderFactory factory = new DateFinderFactory();
+
         return new DateTaskService(factory.create());
     }
 
