@@ -24,20 +24,17 @@ public class DateTaskServiceTest extends TestCase {
         assertThat(dateTaskService, instanceOf(IDateTaskService.class));
     }
 
-    public void testGetDateOption() {
-        try {
-            DateOptions dateOptions = new DateOptions();
-            dateOptions.setDayPart(DayParts.fromValue("evening"));
-            dateOptions.setLocation("Dummy Street 234, Colorado");
-            dateOptions.setRadius(new BigDecimal(20000));
-            dateOptions.setTypes(PlaceTypes.fromValue("restaurant"));
+    public void testGetDateOption() throws Exception {
+        DateOptions dateOptions = new DateOptions();
+        dateOptions.setDayPart(DayParts.fromValue("evening"));
+        dateOptions.setLocation("Dummy Street 234, Colorado");
+        dateOptions.setRadius(new BigDecimal(20000));
+        dateOptions.setTypes(PlaceTypes.fromValue("restaurant"));
 
-            DatePlannerResponse datePlannerResponse = dateTaskService.getDateOption(dateOptions);
+        DatePlannerResponse datePlannerResponse = dateTaskService.getDateOption(dateOptions);
 
-            assertEquals(datePlannerResponse.getPlaces().get(0).getType(), "restaurant");
-        } catch(Exception e) {
-            assertFalse(true);
-        }
+        assertEquals(datePlannerResponse.getPlaces().get(0).getType(), "restaurant");
+        assertEquals(datePlannerResponse.getPlaces().size(), 2);
     }
 
 }
