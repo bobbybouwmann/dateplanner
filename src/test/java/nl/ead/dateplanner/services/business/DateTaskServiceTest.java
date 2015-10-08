@@ -8,6 +8,7 @@ import org.junit.Before;
 import java.math.BigDecimal;
 
 import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 public class DateTaskServiceTest extends TestCase {
@@ -23,17 +24,19 @@ public class DateTaskServiceTest extends TestCase {
         assertThat(dateTaskService, instanceOf(IDateTaskService.class));
     }
 
-    public void testGetDateOption() throws Exception {
-        String type = "bar";
+    public void testGetDateOption() {
+        try {
+            DateOptions dateOptions = new DateOptions();
+            dateOptions.setDayPart(DayParts.fromValue("evening"));
+            dateOptions.setLocation("Dummy Street 234, Colorado");
+            dateOptions.setRadius(new BigDecimal(20000));
+            dateOptions.setTypes(PlaceTypes.fromValue("restaurant"));
 
-        DateOptions dateOption = new DateOptions();
-        dateOption.setDayPart(DayParts.fromValue("morning"));
-        dateOption.setLocation("Arnhem");
-        dateOption.setRadius(new BigDecimal(20000));
-        dateOption.setTypes(PlaceTypes.fromValue(type));
+            DatePlannerResponse datePlannerResponse = dateTaskService.getDateOption(dateOptions);
 
-        for (PlaceType placeType : dateTaskService.getDateOption(dateOption).getResult().getPlacesData().getPlaces()) {
-            assertEquals(type, placeType.getType());
+            assertEquals(datePlannerResponse.getPlaces().get(0).getType(), "restaurant");
+        } catch(Exception e) {
+            assertFalse(true);
         }
     }
 

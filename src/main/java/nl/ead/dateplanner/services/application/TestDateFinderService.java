@@ -1,44 +1,59 @@
 package nl.ead.dateplanner.services.application;
 
-import nl.ead.dateplanner.services.application.google.OpeningHour;
 import nl.ead.dateplanner.services.application.google.Place;
 import nl.ead.dateplanner.services.application.openweather.Forecast;
 
 import java.io.IOException;
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestDateFinderService implements IDateFinderService {
 
     @Override
-    public DateOption getDateOptions(String type, String location, String dayPart, BigDecimal radius) throws IOException {
-        DateOption dateOption = new DateOption();
+    public List<DateOption> getDateOptions(String type, String location, String dayPart, Double radius) throws IOException {
+        Forecast forecastOne = new Forecast();
+        forecastOne.clouds = 0f;
+        forecastOne.snow = 0f;
+        forecastOne.rain = 0f;
+        forecastOne.minimumTemperature = 0f;
+        forecastOne.maximumTemperature = 0f;
+        forecastOne.temperature = 0f;
 
-        Forecast forecast = new Forecast();
-        forecast.temperature = 0f;
-        forecast.minimumTemperature = 0f;
-        forecast.maximumTemperature = 0f;
-        forecast.clouds = 0f;
-        forecast.snow = true;
-        forecast.rain = true;
-
-        OpeningHour openingHour = new OpeningHour();
-        openingHour.openDay = "Monday";
-        openingHour.openHour = 0;
-        openingHour.openMinute = 0;
-        openingHour.closeDay = "Sunday";
-        openingHour.closeHour = 0;
-        openingHour.closeMinute = 0;
+        Forecast forecastTwo = new Forecast();
+        forecastTwo.clouds = 0f;
+        forecastTwo.snow = 0f;
+        forecastTwo.rain = 0f;
+        forecastTwo.minimumTemperature = 0f;
+        forecastTwo.maximumTemperature = 0f;
+        forecastTwo.temperature = 0f;
 
         Place place = new Place();
-        place.name = "Dummy Cafe";
-        place.openingHours.add(openingHour);
-        place.placeId = "";
-        place.type = type;
-        place.vicinety = location;
+        place.latitude = 50.12;
+        place.longitude = 45.99;
+        place.name = "Dummy restaurant";
+        place.placeId = "1234567890";
+        place.type = "restaurant";
+        place.vicinity = "Dummy Street 234, Colorado";
+        place.openingHours = new ArrayList<>();
 
-        dateOption.forecasts.add(forecast);
-        dateOption.places.add(place);
+        DateOption dateOptionOne = new DateOption();
+        DateOption dateOptionTwo = new DateOption();
 
-        return dateOption;
+        dateOptionOne.forecast.add(forecastOne);
+        dateOptionOne.forecast.add(forecastTwo);
+
+        dateOptionTwo.forecast.add(forecastOne);
+        dateOptionTwo.forecast.add(forecastTwo);
+
+        dateOptionOne.place = place;
+        dateOptionTwo.place = place;
+
+        List<DateOption> dateOptions = new ArrayList<>();
+
+        dateOptions.add(dateOptionOne);
+        dateOptions.add(dateOptionTwo);
+
+        return dateOptions;
     }
+
 }
