@@ -19,15 +19,15 @@ public class WeatherService implements IWeatherService {
     /**
      * Retrieve the weather data for a number of days for a city.
      *
-     * @param countryCode Country code for the city.
-     * @param city City to find the weather for.
+     * @param latitude Location latitude
+     * @param longitude Location longitude
      * @param dayPart Part of the day that is used.
      * @return List<Forecast>
      * @throws IOException
      */
-    public List<Forecast> retrieveWeather(String countryCode, String city, String dayPart) throws IOException {
+    public List<Forecast> retrieveWeather(Float latitude, Float longitude, String dayPart) throws IOException {
         OpenWeatherMap owm = new OpenWeatherMap(METRIC, "");
-        DailyForecast dailyForecast = owm.dailyForecastByCityName(city, countryCode, days);
+        DailyForecast dailyForecast = owm.dailyForecastByCoordinates(latitude, longitude, days);
 
         List<Forecast> forecasts = new ArrayList<>();
 
@@ -56,14 +56,10 @@ public class WeatherService implements IWeatherService {
         forecast.maximumTemperature = currentForecast.getTemperatureInstance().getMaximumTemperature();
         forecast.minimumTemperature = currentForecast.getTemperatureInstance().getMinimumTemperature();
         forecast.clouds = currentForecast.getPercentageOfClouds();
-
-        if (currentForecast.hasRain()) {
-            forecast.rain = true;
-        }
-
-        if (currentForecast.hasSnow()) {
-            forecast.snow = true;
-        }
+        forecast.rain = currentForecast.getRain();
+        forecast.snow = currentForecast.getSnow();
+        forecast.clouds = currentForecast.getPercentageOfClouds();
+        forecast.date = currentForecast.getDateTime();
 
         return forecast;
     }
@@ -76,7 +72,7 @@ public class WeatherService implements IWeatherService {
      * @return Float
      */
     private Float getTemperatureByDayPart(DailyForecast.Forecast currentForecast, String dayPart) {
-        Float temperature = currentForecast.getTemperatureInstance().getDayTemperature();
+        Float temperature;
 
         switch(dayPart) {
             case "morning":
@@ -93,6 +89,10 @@ public class WeatherService implements IWeatherService {
 
             case "night":
                 temperature = currentForecast.getTemperatureInstance().getNightTemperature();
+            break;
+
+            default:
+                temperature = currentForecast.getTemperatureInstance().getDayTemperature();
             break;
         }
 

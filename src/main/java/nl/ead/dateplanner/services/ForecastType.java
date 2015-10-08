@@ -20,8 +20,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="temperature" type="{http://www.w3.org/2001/XMLSchema}float"/>
  *         &lt;element name="minTemperature" type="{http://www.w3.org/2001/XMLSchema}float"/>
  *         &lt;element name="maxTemperature" type="{http://www.w3.org/2001/XMLSchema}float"/>
- *         &lt;element name="rain" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="snow" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
+ *         &lt;element name="rain" type="{http://www.w3.org/2001/XMLSchema}float"/>
+ *         &lt;element name="snow" type="{http://www.w3.org/2001/XMLSchema}float"/>
  *         &lt;element name="clouds" type="{http://www.w3.org/2001/XMLSchema}float"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -49,9 +49,9 @@ public class ForecastType {
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner")
     protected float maxTemperature;
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner")
-    protected boolean rain;
+    protected float rain;
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner")
-    protected boolean snow;
+    protected float snow;
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner")
     protected float clouds;
 
@@ -107,7 +107,7 @@ public class ForecastType {
      * Gets the value of the rain property.
      * 
      */
-    public boolean isRain() {
+    public float getRain() {
         return rain;
     }
 
@@ -115,7 +115,7 @@ public class ForecastType {
      * Sets the value of the rain property.
      * 
      */
-    public void setRain(boolean value) {
+    public void setRain(float value) {
         this.rain = value;
     }
 
@@ -123,7 +123,7 @@ public class ForecastType {
      * Gets the value of the snow property.
      * 
      */
-    public boolean isSnow() {
+    public float getSnow() {
         return snow;
     }
 
@@ -131,7 +131,7 @@ public class ForecastType {
      * Sets the value of the snow property.
      * 
      */
-    public void setSnow(boolean value) {
+    public void setSnow(float value) {
         this.snow = value;
     }
 

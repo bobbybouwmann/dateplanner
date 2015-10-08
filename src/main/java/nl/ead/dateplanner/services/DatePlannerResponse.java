@@ -6,16 +6,17 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for PlaceDataType complex type.
+ * <p>Java class for anonymous complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="PlaceDataType">
+ * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
@@ -29,10 +30,11 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "PlaceDataType", namespace = "http://www.han.nl/schemas/dateplanner", propOrder = {
+@XmlType(name = "", propOrder = {
     "places"
 })
-public class PlaceDataType {
+@XmlRootElement(name = "DatePlannerResponse", namespace = "http://www.han.nl/schemas/dateplanner")
+public class DatePlannerResponse {
 
     @XmlElement(namespace = "http://www.han.nl/schemas/dateplanner")
     protected List<PlaceType> places;

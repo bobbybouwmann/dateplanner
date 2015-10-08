@@ -38,11 +38,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DateDataType }
+     * Create an instance of {@link PlaceType }
      * 
      */
-    public DateDataType createDateDataType() {
-        return new DateDataType();
+    public PlaceType createPlaceType() {
+        return new PlaceType();
     }
 
     /**
@@ -59,30 +59,6 @@ public class ObjectFactory {
      */
     public DateOptions createDateOptions() {
         return new DateOptions();
-    }
-
-    /**
-     * Create an instance of {@link PlaceType }
-     * 
-     */
-    public PlaceType createPlaceType() {
-        return new PlaceType();
-    }
-
-    /**
-     * Create an instance of {@link PlaceDataType }
-     * 
-     */
-    public PlaceDataType createPlaceDataType() {
-        return new PlaceDataType();
-    }
-
-    /**
-     * Create an instance of {@link WeatherDataType }
-     * 
-     */
-    public WeatherDataType createWeatherDataType() {
-        return new WeatherDataType();
     }
 
     /**

@@ -34,7 +34,6 @@
 
     <complexType name="DateOptions">
         <sequence>
-            <element name="countryCode" type="string" minOccurs="1" maxOccurs="1"/>
             <element name="location" type="string" minOccurs="1" maxOccurs="1"/>
             <element name="radius" type="decimal" minOccurs="1" maxOccurs="1"/>
             <element name="dayPart" type="tns:DayParts" minOccurs="1" maxOccurs="1"/>
@@ -47,40 +46,23 @@
             <element name="temperature" type="float"/>
             <element name="minTemperature" type="float"/>
             <element name="maxTemperature" type="float"/>
-            <element name="rain" type="boolean"/>
-            <element name="snow" type="boolean"/>
+            <element name="rain" type="float"/>
+            <element name="snow" type="float"/>
             <element name="clouds" type="float"/>
-        </sequence>
-    </complexType>
-
-    <complexType name="WeatherDataType">
-        <sequence>
-            <element name="forecast" type="tns:ForecastType" minOccurs="0" maxOccurs="unbounded"/>
         </sequence>
     </complexType>
 
     <complexType name="PlaceType">
         <sequence>
             <element name="name" type="string"/>
-            <element name="id" type="string"/>
             <element name="placeId" type="string"/>
+            <element name="latitude" type="decimal"/>
+            <element name="longitude" type="decimal"/>
             <element name="type" type="string"/>
             <element name="vicinity" type="string"/>
-            <element name="openingHours" type="string" minOccurs="0" maxOccurs="unbounded"/>
-        </sequence>
-    </complexType>
-
-    <complexType name="PlaceDataType">
-        <sequence>
-            <element name="places" type="tns:PlaceType" minOccurs="0" maxOccurs="unbounded"/>
-        </sequence>
-    </complexType>
-
-    <complexType name="DateDataType">
-        <sequence>
-            <element name="weatherData" type="tns:WeatherDataType"/>
-            <element name="placesData" type="tns:PlaceDataType"/>
+            <element name="openingHours" type="string"/>
             <element name="date" type="dateTime"/>
+            <element name="forecast" type="tns:ForecastType" minOccurs="1" maxOccurs="1"/>
         </sequence>
     </complexType>
 
@@ -95,7 +77,7 @@
     <element name="DatePlannerResponse">
         <complexType>
             <sequence>
-                <element name="result" type="tns:DateDataType" minOccurs="0"/>
+                <element name="places" type="tns:PlaceType" minOccurs="0" maxOccurs="unbounded"/>
             </sequence>
         </complexType>
     </element>
