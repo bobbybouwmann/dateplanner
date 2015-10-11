@@ -30,10 +30,6 @@ public class DateTaskServiceTest extends TestCase {
         dateTaskService = new DateTaskService(new TestDateFinderService());
     }
 
-    public void testDateTaskServiceImplementsInterface() throws Exception {
-        assertThat(dateTaskService, instanceOf(IDateTaskService.class));
-    }
-
     public void testGetDateOption() throws Exception {
         String type = "restaurant";
 
