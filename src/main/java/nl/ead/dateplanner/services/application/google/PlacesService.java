@@ -21,6 +21,8 @@ public class PlacesService implements IPlacesService {
         List<Place> places = new ArrayList<>();
 
         List<net.sf.sprockets.google.Place> placesFound = getPlacesNear(type, latitude, longitude, radius.intValue());
+
+        // Convert the found places from Sprocket format to our own format
         for (net.sf.sprockets.google.Place place : placesFound) {
             Place converted = new Place();
 
@@ -30,6 +32,9 @@ public class PlacesService implements IPlacesService {
             converted.placeId = place.getPlaceId().getId();
             converted.latitude = place.getLatitude();
             converted.longitude = place.getLongitude();
+
+            // Optionally convert the opening hours
+            // These are optinoally because the returned places from google do not all have these filled in
             List<net.sf.sprockets.google.Place.OpeningHours> openinghours = place.getOpeningHours();
             if (openinghours != null) {
                 for (net.sf.sprockets.google.Place.OpeningHours anOpeningHour : openinghours) {
@@ -63,6 +68,7 @@ public class PlacesService implements IPlacesService {
     private List<net.sf.sprockets.google.Place> getPlacesNear(String type, Double latitude, Double longitude, Integer radius) {
         try {
 
+            // Call to the Google places API through the sprocket wrapper
             List<net.sf.sprockets.google.Place> places = Places.nearbySearch(new Places.Params()
                 .location(latitude, longitude)
                 .types(type)
@@ -78,6 +84,7 @@ public class PlacesService implements IPlacesService {
         } catch (IOException e) {
             // todo
         }
-        return new ArrayList<net.sf.sprockets.google.Place>();
+        // Return an empty list if we cannot find any places
+        return new ArrayList<>();
     }
 }
