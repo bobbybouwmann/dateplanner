@@ -4,6 +4,7 @@ import net.aksingh.owmjapis.DailyForecast;
 import net.aksingh.owmjapis.OpenWeatherMap;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,26 +14,15 @@ import static net.aksingh.owmjapis.OpenWeatherMap.Units.METRIC;
 
 public class WeatherService implements IWeatherService {
 
-    private String API_Key;
+    private String OPEN_WEATHER_API_KEY;
 
-    public WeatherService() {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("owapi.xml").getFile());
-        file.setReadable(true);
-
-        StringBuilder result = new StringBuilder("");
-
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                result.append(line);
-            }
-            scanner.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        API_Key = result.toString();
+    /**
+     * Set the api key on construct.
+     *
+     * @throws FileNotFoundException
+     */
+    public WeatherService() throws FileNotFoundException {
+        OPEN_WEATHER_API_KEY = getAPIKey("owapi.txt");
     }
 
     /**
@@ -41,16 +31,18 @@ public class WeatherService implements IWeatherService {
     private Byte days = 7;
 
     /**
-     * Retrieve the weather data for a number of days for a city.
+     * Retrieve the weather based on the location (latitude, longitude).
+     * Also set the temperature based on the day part.
      *
      * @param latitude Location latitude
      * @param longitude Location longitude
-     * @param dayPart Part of the day that is used.
-     * @return List<Forecast>
+     * @param dayPart Day part for the forecast
+     *
+     * @return Return a list of forecasts.
      * @throws IOException
      */
     public List<Forecast> retrieveWeather(Float latitude, Float longitude, String dayPart) throws IOException {
-        OpenWeatherMap owm = new OpenWeatherMap(METRIC, API_Key);
+        OpenWeatherMap owm = new OpenWeatherMap(METRIC, OPEN_WEATHER_API_KEY);
         DailyForecast dailyForecast = owm.dailyForecastByCoordinates(latitude, longitude, days);
 
         List<Forecast> forecasts = new ArrayList<>();
@@ -121,5 +113,33 @@ public class WeatherService implements IWeatherService {
         }
 
         return temperature;
+    }
+
+    /**
+     * Get the Open Weather API key from the file
+     *
+     * @param fileName File in which the API key is stored
+     *
+     * @return Open Weather API key
+     * @throws FileNotFoundException
+     */
+    private String getAPIKey(String fileName) throws FileNotFoundException {
+        File file = new File(getClass().getClassLoader().getResource(fileName).getFile());
+
+        StringBuilder result = new StringBuilder("");
+
+        try (Scanner scanner = new Scanner(file)) {
+            if (scanner.hasNextLine()) {
+                result.append(scanner.nextLine());
+            }
+
+            scanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            throw e;
+        }
+
+        return result.toString();
     }
 }

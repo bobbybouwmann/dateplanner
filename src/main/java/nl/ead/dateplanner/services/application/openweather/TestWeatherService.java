@@ -13,8 +13,8 @@ public class TestWeatherService implements IWeatherService {
         return returnValue;
     }
 
-
     public void SetReturnValue(List<Forecast> forecasts) {
         returnValue = forecasts;
     }
+
 }

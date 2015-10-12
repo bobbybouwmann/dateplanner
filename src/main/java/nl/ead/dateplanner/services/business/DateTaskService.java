@@ -17,12 +17,23 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class DateTaskService implements IDateTaskService {
+
     private final IDateFinderService dateFinder;
 
     public DateTaskService(IDateFinderService dateFinder) {
         this.dateFinder = dateFinder;
     }
 
+    /**
+     * Get the date options. A date option holds a place with a forecast.
+     *
+     * @param options The options from the request.
+     *
+     * @return Return a list of date options.
+     *
+     * @throws IOException
+     * @throws DatatypeConfigurationException
+     */
     public DatePlannerResponse getDateOption(DateOptions options) throws IOException, DatatypeConfigurationException {
         List<DateOption> dateOptions = dateFinder.getDateOptions(options.getTypes().value(), options.getLocation(), options.getDayPart().value(), options.getRadius().doubleValue());
 
@@ -43,6 +54,14 @@ public class DateTaskService implements IDateTaskService {
         return response;
     }
 
+    /**
+     * Get all the places types based on the options.
+     *
+     * @param dateOptions The options from the request.
+     *
+     * @return A list of place types.
+     * @throws DatatypeConfigurationException
+     */
     private List<PlaceType> getPlaceTypes(List<DateOption> dateOptions) throws DatatypeConfigurationException {
         List<PlaceType> places = new ArrayList<>();
 
@@ -63,6 +82,13 @@ public class DateTaskService implements IDateTaskService {
         return places;
     }
 
+    /**
+     * Get the best forecast based on the highest temperature.
+     *
+     * @param forecasts List of forecasts.
+     *
+     * @return The best forecast.
+     */
     private Forecast getBestForecast(List<Forecast> forecasts) {
         Float highestTemperature = 0f;
         int index = 0;
@@ -77,6 +103,13 @@ public class DateTaskService implements IDateTaskService {
         return forecasts.get(index);
     }
 
+    /**
+     * Create a ForecastType object.
+     *
+     * @param forecast Forecast object.
+     *
+     * @return ForecastType object.
+     */
     private ForecastType createForecastType(Forecast forecast) {
         ForecastType forecastType = new ForecastType();
 
@@ -89,6 +122,13 @@ public class DateTaskService implements IDateTaskService {
         return forecastType;
     }
 
+    /**
+     * Create a PlaceType object.
+     *
+     * @param place Place object.
+     *
+     * @return PlaceType object.
+     */
     private PlaceType createPlaceType(Place place) {
         PlaceType placeType = new PlaceType();
 
@@ -103,6 +143,14 @@ public class DateTaskService implements IDateTaskService {
         return placeType;
     }
 
+    /**
+     * Set the XMLGregorianCalendar date based on a date.
+     *
+     * @param date Date object.
+     *
+     * @return XMLGregorianCalendar object.
+     * @throws DatatypeConfigurationException
+     */
     private XMLGregorianCalendar setDate(Date date) throws DatatypeConfigurationException {
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
         gregorianCalendar.setTime(date);
