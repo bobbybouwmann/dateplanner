@@ -4,6 +4,7 @@ import net.aksingh.owmjapis.DailyForecast;
 import net.aksingh.owmjapis.OpenWeatherMap;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,26 +14,10 @@ import static net.aksingh.owmjapis.OpenWeatherMap.Units.METRIC;
 
 public class WeatherService implements IWeatherService {
 
-    private String API_Key;
+    private String OPEN_WEATHER_API_KEY;
 
-    public WeatherService() {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("owapi.xml").getFile());
-        file.setReadable(true);
-
-        StringBuilder result = new StringBuilder("");
-
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                result.append(line);
-            }
-            scanner.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        API_Key = result.toString();
+    public WeatherService() throws FileNotFoundException {
+        OPEN_WEATHER_API_KEY = getAPIKey("owapi.txt");
     }
 
     /**
@@ -50,7 +35,7 @@ public class WeatherService implements IWeatherService {
      * @throws IOException
      */
     public List<Forecast> retrieveWeather(Float latitude, Float longitude, String dayPart) throws IOException {
-        OpenWeatherMap owm = new OpenWeatherMap(METRIC, API_Key);
+        OpenWeatherMap owm = new OpenWeatherMap(METRIC, OPEN_WEATHER_API_KEY);
         DailyForecast dailyForecast = owm.dailyForecastByCoordinates(latitude, longitude, days);
 
         List<Forecast> forecasts = new ArrayList<>();
@@ -121,5 +106,25 @@ public class WeatherService implements IWeatherService {
         }
 
         return temperature;
+    }
+
+    private String getAPIKey(String fileName) throws FileNotFoundException {
+        File file = new File(getClass().getClassLoader().getResource(fileName).getFile());
+
+        StringBuilder result = new StringBuilder("");
+
+        try (Scanner scanner = new Scanner(file)) {
+            if (scanner.hasNextLine()) {
+                result.append(scanner.nextLine());
+            }
+
+            scanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            throw e;
+        }
+
+        return result.toString();
     }
 }
