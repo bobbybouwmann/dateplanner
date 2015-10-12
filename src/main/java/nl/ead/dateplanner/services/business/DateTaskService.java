@@ -49,7 +49,13 @@ public class DateTaskService implements IDateTaskService {
 
         DatePlannerResponse response = new DatePlannerResponse();
 
-        response.getPlaces().addAll(placeTypes);
+        for (int i = 0; i < placeTypes.size() && i < 20; i++) {
+            try {
+                response.getPlaces().add(placeTypes.get(i));
+            } catch (Exception e) {
+                // Ignore
+            }
+        }
 
         return response;
     }
@@ -71,9 +77,7 @@ public class DateTaskService implements IDateTaskService {
             ForecastType forecastType = this.createForecastType(forecast);
 
             PlaceType placeType = this.createPlaceType(dateOption.place);
-
             placeType.setDate(this.setDate(forecast.date));
-
             placeType.setForecast(forecastType);
 
             places.add(placeType);

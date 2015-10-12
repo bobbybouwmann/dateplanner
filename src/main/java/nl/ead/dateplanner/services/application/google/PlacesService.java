@@ -74,7 +74,7 @@ public class PlacesService implements IPlacesService {
                 .types(type)
                 .radius(radius)
                 .rankBy(Places.Params.RankBy.DISTANCE)
-                .maxResults(20), Places.Field.NAME, Places.Field.VICINITY, Places.Field.TYPES, Places.Field.OPENING_HOURS, Places.Field.GEOMETRY
+                .maxResults(100), Places.Field.NAME, Places.Field.VICINITY, Places.Field.TYPES, Places.Field.OPENING_HOURS, Places.Field.GEOMETRY
             ).getResult();
 
             // check if we found places.
