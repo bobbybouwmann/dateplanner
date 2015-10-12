@@ -10,4 +10,5 @@
 log/
 target/
 /src/main/resources/sprockets.xml
-/src/main/resources/owapi.xml
+
+/src/main/resources/owapi.txt

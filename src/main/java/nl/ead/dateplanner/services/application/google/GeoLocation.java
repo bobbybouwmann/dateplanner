@@ -8,6 +8,11 @@ public class GeoLocation {
 
     public BigDecimal longitude;
 
+    /**
+     * Create a new Geo Location
+     * @param latitude Latitude coordinates
+     * @param longitude Longitude coordinates
+     */
     public GeoLocation(BigDecimal latitude, BigDecimal longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
