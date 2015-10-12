@@ -3,13 +3,37 @@ package nl.ead.dateplanner.services.application.openweather;
 import net.aksingh.owmjapis.DailyForecast;
 import net.aksingh.owmjapis.OpenWeatherMap;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import static net.aksingh.owmjapis.OpenWeatherMap.Units.METRIC;
 
 public class WeatherService implements IWeatherService {
+
+    private String API_Key;
+
+    public WeatherService() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("owapi.xml").getFile());
+        file.setReadable(true);
+
+        StringBuilder result = new StringBuilder("");
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                result.append(line);
+            }
+            scanner.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        API_Key = result.toString();
+    }
 
     /**
      * Number of days to retrieve the weather.
@@ -26,7 +50,7 @@ public class WeatherService implements IWeatherService {
      * @throws IOException
      */
     public List<Forecast> retrieveWeather(Float latitude, Float longitude, String dayPart) throws IOException {
-        OpenWeatherMap owm = new OpenWeatherMap(METRIC, "");
+        OpenWeatherMap owm = new OpenWeatherMap(METRIC, API_Key);
         DailyForecast dailyForecast = owm.dailyForecastByCoordinates(latitude, longitude, days);
 
         List<Forecast> forecasts = new ArrayList<>();
