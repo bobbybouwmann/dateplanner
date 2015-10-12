@@ -16,6 +16,11 @@ public class WeatherService implements IWeatherService {
 
     private String OPEN_WEATHER_API_KEY;
 
+    /**
+     * Set the api key on construct.
+     *
+     * @throws FileNotFoundException
+     */
     public WeatherService() throws FileNotFoundException {
         OPEN_WEATHER_API_KEY = getAPIKey("owapi.txt");
     }
@@ -26,12 +31,14 @@ public class WeatherService implements IWeatherService {
     private Byte days = 7;
 
     /**
-     * Retrieve the weather data for a number of days for a city.
+     * Retrieve the weather based on the location (latitude, longitude).
+     * Also set the temperature based on the day part.
      *
      * @param latitude Location latitude
      * @param longitude Location longitude
-     * @param dayPart Part of the day that is used.
-     * @return List<Forecast>
+     * @param dayPart Day part for the forecast
+     *
+     * @return Return a list of forecasts.
      * @throws IOException
      */
     public List<Forecast> retrieveWeather(Float latitude, Float longitude, String dayPart) throws IOException {
@@ -108,6 +115,14 @@ public class WeatherService implements IWeatherService {
         return temperature;
     }
 
+    /**
+     * Get the Open Weather API key from the file
+     *
+     * @param fileName File in which the API key is stored
+     *
+     * @return Open Weather API key
+     * @throws FileNotFoundException
+     */
     private String getAPIKey(String fileName) throws FileNotFoundException {
         File file = new File(getClass().getClassLoader().getResource(fileName).getFile());
 
