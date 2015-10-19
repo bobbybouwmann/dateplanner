@@ -1,40 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:sws="http://www.springframework.org/schema/web-services"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-    <!--Scan for classes that can be autowired-->
-    <context:component-scan base-package="nl.ead.dateplanner"/>
-    <!--Allow usage of annotation driven webservices with @Endpoint, @RequestPayload, @ResponsePayload etc.-->
-    <sws:annotation-driven/>
 
-    <!--Interceptors get to process incoming before and outgoing messages after the endpoint-->
-    <sws:interceptors>
-        <bean class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor"/>
-        <bean class="org.springframework.ws.soap.server.endpoint.interceptor.SoapEnvelopeLoggingInterceptor"/>
-        <bean id="validatingInterceptor"
-              class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
-            <property name="schema" value="/dateplanner/dateplanner.xsd"/>
-            <property name="validateRequest" value="true"/>
-            <property name="validateResponse" value="true"/>
-        </bean>
-    </sws:interceptors>
+    <!-- === Route(s) ==== -->
+    <camel:camelContext id="camelContext">
+        <camel:routeBuilder ref="datePlannerRoute"/>
+    </camel:camelContext>
 
-    <sws:dynamic-wsdl id="dateplannerservice"
-                      portTypeName="Dateplanner"
-                      locationUri="/dateplanner/"
-                      targetNamespace="http://www.han.nl/schemas/dateplanner/definitions">
-        <sws:xsd location="/dateplanner/dateplanner.xsd" />
-    </sws:dynamic-wsdl>
+    <bean id="datePlannerRoute" class="nl.ead.dateplanner.services.orchestration.DatePlannerCamelRoute"/>
 
-    <bean id="dateTaskService" factory-bean="dateTaskFactory" factory-method="create"/>
+    <!-- === Endpoint mapping(s) ==== -->
+    <bean id="dateplannerEndpointMapping" class="org.apache.camel.component.spring.ws.bean.CamelEndpointMapping">
+        <property name="interceptors">
+            <list>
+                <ref bean="datePlannerValidatingInterceptor"/>
+                <ref bean="loggingInterceptor"/>
+            </list>
+        </property>
+    </bean>
 
-    <bean id="dateTaskFactory" class="nl.ead.dateplanner.services.business.DateTaskFactory"/>
+    <!-- === Interceptors ==== -->
+    <bean id="loggingInterceptor" class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor"/>
+
+    <bean id="datePlannerValidatingInterceptor"
+          class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
+        <property name="schema" value="/dateplanner/dateplanner.xsd"/>
+        <property name="validateRequest" value="true"/>
+        <property name="validateResponse" value="true"/>
+    </bean>
+
+    <!-- === WSDL exposure ==== -->
+    <bean id="dateplanner" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="schema">
+            <bean id="dateplanner_xsd" class="org.springframework.xml.xsd.SimpleXsdSchema">
+                <property name="xsd" value="/dateplanner/dateplanner.xsd"/>
+            </bean>
+        </property>
+        <property name="portTypeName" value="dateplanner"/>
+        <property name="locationUri" value="http://localhost:8080/dateplanner"/>
+    </bean>
 
 </beans>

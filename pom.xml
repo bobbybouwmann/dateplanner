@@ -7,7 +7,7 @@
     <url>http://www.springframework.org/spring-ws</url>
 
     <groupId>nl.ead.dateplanner</groupId>
-    <artifactId>DatePlanner</artifactId>
+    <artifactId>dateplanner</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <packaging>war</packaging>
@@ -17,6 +17,7 @@
         <spring.ws.version>2.1.4.RELEASE</spring.ws.version>
         <spring.framework.version>4.0.5.RELEASE</spring.framework.version>
         <hibernate.version>4.3.7.Final</hibernate.version>
+        <camel.version>2.15.3</camel.version>
     </properties>
 
     <build>
@@ -57,10 +58,28 @@
                     <schemaDirectory>${basedir}/src/main/webapp/dateplanner</schemaDirectory>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring-ws</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jaxb</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring</artifactId>
+            <version>${camel.version}</version>
+        </dependency>
+
         <!--Start Spring-WS dependencies-->
         <!--Spring-WS-->
         <dependency>
@@ -126,5 +145,19 @@
             <version>3.2.4.RELEASE</version>
         </dependency>
         <!--End Google Geocode dependency-->
+
+        <!-- logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.6.6</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        <!-- End logging -->
+
     </dependencies>
 </project>
